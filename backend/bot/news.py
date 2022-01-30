@@ -1,6 +1,12 @@
+import os
+import json
 import requests
+
 from bs4 import BeautifulSoup as bs
- 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 def get_title():
     url = 'https://news.daum.net'
     response = requests.get(url)
@@ -16,10 +22,17 @@ def get_title():
             news_titles.append(title.get_text(" ", strip=True))
 
         return news_titles
-    else : 
+    else: 
         return response.status_code
 
 def get_covid_confirm_case():
-    url = 'https://api.corona-19.kr/korea/?serviceKey=key'
+    url = 'https://api.corona-19.kr/korea/?serviceKey=' + str(os.environ.get('COVID_KEY'))
+    response = requests.get(url)
 
-    print( requests.get(url).text.TotalCaseBefore )
+    if response.status_code == 200:
+        total_case_before = response.json()['TotalCaseBefore']
+        update_time = response.json()['updateTime']
+
+        return total_case_before, update_time
+    else : 
+        return response.status_code
