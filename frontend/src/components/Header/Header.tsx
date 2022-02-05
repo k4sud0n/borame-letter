@@ -9,10 +9,10 @@ const Header = () => {
                     <span className="ml-3 text-xl text-sky-500">보라매</span><span className="text-xl text-gray-900">인편</span>
                 </a>
 
-                <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
-                    <a className="mr-5 hover:text-sky-500" href="/about">공지사항</a>
-                    <a className="mr-5 hover:text-sky-500" href="/achievements">후기</a>
-                    <a className="mr-5 hover:text-sky-500" href="/recruit">신청하기</a>
+                <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center text-center">
+                    <a className="mr-2.5 ml-2.5 hover:text-sky-500" href="/about">공지사항</a>
+                    <a className="mr-2.5 ml-2.5 hover:text-sky-500" href="/achievements">후기</a>
+                    <a className="mr-2.5 ml-2.5 hover:text-sky-500" href="/recruit">신청하기</a>
                 </nav>
             </div> 
         </header>
