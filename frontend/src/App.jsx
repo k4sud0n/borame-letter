@@ -1,12 +1,17 @@
-import React from "react";
-import "./App.css";
+import React from 'react';
+
+import Header from './components/Header';
+import Banner from './components/Banner';
+import Introduce from './components/Introduce'
+import Footer from './components/Footer'
 
 function App() {
   return (
-    <div className="flex justify-center">
-      <h1 className="font-bold font-mono text-2xl text-blue-900">
-        React and Tailwind with Vitejs!
-      </h1>
+    <div>
+      <Header />
+      <Banner />
+      <Introduce />
+      <Footer />
     </div>
   );
 }
