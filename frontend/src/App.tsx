@@ -13,7 +13,7 @@ import RecruitPage from './pages/RecruitPage';
 function App() {
   return (
     <div className={'flex flex-col w-full h-full'}>
-      <Header />
+    <Header />
       <Switch>
         <Route path={'/'} component={MainPage} />
         <Route path={'/about'} component={AboutPage} />
@@ -21,7 +21,6 @@ function App() {
         <Route path={'/recruit'} component={RecruitPage} />
         <Route component={ErrorPage} />
       </Switch>
-      <div className={'grow'} />
       <Footer />
     </div>
 
