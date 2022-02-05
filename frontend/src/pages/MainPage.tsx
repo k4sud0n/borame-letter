@@ -5,11 +5,9 @@ import Introduce from '@/components/Introduce';
 
 const MainPage = (): JSX.Element => {
   return (
-    <div className={'w-full h-full flex flex-col'}>
-      <Header />
+    <div className={'flex flex-col'}>
       <Banner />
       <Introduce />
-      <Footer />
     </div>
   );
 };
