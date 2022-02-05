@@ -24,15 +24,15 @@ const Banner = () => {
         <div className="border-b border-inherit bg-sky-300">
             <div className="md:flex justify-between container mx-auto p-5">
                 <div className="mt-7 tracking-wide">
-                    <div className="text-3xl md:text-6xl font-extrabold text-white drop-shadow-lg">모든 공군 훈련병들의</div>
+                    <div className="text-3xl md:text-6xl font-extrabold text-white drop-shadow-md">모든 공군 훈련병들의</div>
                     <TextTransition
-                        className="mt-3.5 text-6xl font-extrabold text-white drop-shadow-lg"
+                        className="mt-3.5 text-6xl font-extrabold text-white drop-shadow-md"
                         text={ TEXTS[index % TEXTS.length] }
                         springConfig={ presets.wobbly }
                     />
-                    <div className="mt-3.5 text-5xl md:text-6xl font-extrabold text-white drop-shadow-lg">보라매인편</div>
+                    <div className="mt-3.5 text-5xl md:text-6xl font-extrabold text-white drop-shadow-md">보라매인편</div>
                 </div>
-                <img className="drop-shadow-lg md:w-1/3 md:h-1/3" src="../../../assets/image/background1.png" />
+                <img className="drop-shadow-md md:w-1/3 md:h-1/3" src="../../../assets/image/background1.png" />
             </div>
         </div>
     )
