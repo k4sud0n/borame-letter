@@ -4,6 +4,18 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+    .stroke-dasharray-16 {
+        stroke-dasharray: 16px;
+    }
+    .stroke-dashoffset-16 {
+        stroke-dashoffset: 16px;
+    }
+    .stroke-dashoffset-0 {
+        stroke-dashoffset: 0;
+    }
+}
+
 body {
     margin: 0;
     padding: 0;

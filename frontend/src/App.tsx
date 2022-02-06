@@ -9,6 +9,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import AchievementsPage from './pages/AchievementsPage';
 import RecruitPage from './pages/RecruitPage';
+import RecruitDetailPage from './pages/RecruitDetailPage';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path={'/about'} component={AboutPage} />
         <Route path={'/achievements'} component={AchievementsPage} />
         <Route path={'/recruit'} component={RecruitPage} />
+        <Route path={'/recruit/details:rest*'} component={RecruitDetailPage} />
         <Route component={ErrorPage} />
       </Switch>
       <Footer />
