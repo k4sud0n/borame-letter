@@ -66,7 +66,7 @@ const RecruitPage = (): JSX.Element => {
             type={'text'}
             name={'name'}
             pattern={pattern.name}
-            className={`border-2 outline-none border-slate-100 bg-slate-100 rounded-lg p-3
+            className={`border-2 outline-none border-slate-100 bg-slate-100 rounded-lg p-3 w-full
             hover:bg-slate-300 focus:border-slate-300 valid:border-sky-500 focus:valid:border-sky-500 invalid:border-red-500 focus:invalid:border-red-500 transition-all peer`}
             placeholder={'이름'}
           />
@@ -78,7 +78,7 @@ const RecruitPage = (): JSX.Element => {
             required
             type={'number'}
             name={'gen'}
-            className={`border-2 outline-none border-slate-100 bg-slate-100 rounded-lg p-3
+            className={`border-2 outline-none border-slate-100 bg-slate-100 rounded-lg p-3 w-full
             hover:bg-slate-300 focus:border-slate-300 valid:border-sky-500 focus:valid:border-sky-500 invalid:border-red-500 focus:invalid:border-red-500 transition-all peer`}
             min={800}
             pattern={pattern.gen}

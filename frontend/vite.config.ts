@@ -1,10 +1,23 @@
 import path from 'path';
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 
-console.log( path.resolve(__dirname, 'src'));
-// https://vitejs.dev/config/
-export default defineConfig({
+export default ({ mode }) => {
+  const { HMR_HOST }: Record<string, string> = { ...process.env, ...loadEnv(mode, process.cwd(), '') };
+
+  const hmr = HMR_HOST
+    ? {
+        host: HMR_HOST,
+        protocol: 'wss',
+        port: 443,
+      }
+    : undefined;
+
+  return defineConfig({
+  server: {
+    host: 'localhost',
+    hmr,
+  },
   resolve: {
     alias: [
       {
@@ -14,4 +27,5 @@ export default defineConfig({
     ],
   },
   plugins: [react()]
-})
+});
+}

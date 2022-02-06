@@ -1,42 +1,15 @@
 import DetailCheckbox from '@/components/recruit/DetailCheckbox';
+import TopicUtil, { gameTopic, newsTopic, otherTopic, sportsTopic } from '@/constants/topic';
 import useQuery from '@/hooks/useQuery';
-import React, { useCallback, useLayoutEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import TextTransition, { presets } from 'react-text-transition';
 import { useMediaMatch } from 'rooks';
-
-const topic = {
-  news: {
-    news: '뉴스',
-    'covid-19': '코로나 19',
-    bitcoin: '암호화폐',
-    stock: '주식',
-    politics: '정치',
-    weather: '날씨',
-    entertain: '연예',
-  },
-  sports: {
-    kbo: 'KBO',
-    mlb: 'MLB',
-    championsLeague: '챔피언스 리그',
-    otherSports: '스포츠를 잘 몰라서 ㅎ',
-  },
-  game: {
-    lol: '리그 오브 레전드',
-    maple: '메이플스토리',
-    otherGame: '무슨 게임이 있을까',
-  },
-  other: {
-    something: '기타 무언가...',
-  }
-}
-
-const allTopic: Record<string, string> = Object.values(topic).reduce((prev, curr) => ({ ...prev, ...curr }), {});
 
 const RecruitDetailPage = (): JSX.Element => {
   const name = useQuery('name');
   const gen = useQuery('gen');
   const date = useQuery('date');
-  
+
   const isNarrow = useMediaMatch('(max-width: 600px)');
 
   const [index, setIndex] = useState(0);
@@ -46,28 +19,32 @@ const RecruitDetailPage = (): JSX.Element => {
     const { checked, id } = event.target;
 
     if (checked) {
-      setSelected((it) => Array.from(new Set(it.concat(id))));
+      setSelected((it) => {
+        setIndex(it.length);
+
+        return Array.from(new Set(it.concat(id)))
+      });
     } else {
       setSelected((it) => [...it.filter((subject) => subject !== id)]);
     }
   }, []);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const interval = setInterval(() => {
       setIndex((i) => i + 1);
-    }, 1500);
+    }, 1000);
 
     return () => { clearInterval(interval) };
-  }, []);
+  }, [selected]);
 
   return (
-    <div className={'md:container md:mx-auto grow flex flex-col justify-center items-center center gap-3'}>
+    <div className={'md:container md:mx-auto grow flex flex-col justify-center items-center center gap-6 py-12'}>
       <div className={'text-2xl font-bold text-centerr'}>
         {gen}기 {name} 훈련병에게{' '}
         <TextTransition
           inline={!isNarrow}
           className={'text-sky-500'}
-          text={selected.length > 0 ? `"${allTopic[selected[index % selected.length]]}"` : '어떤'}
+          text={selected.length > 0 ? `"${TopicUtil.get(selected[index % selected.length])?.title}"` : '어떤'}
           springConfig={presets.default}
         />
         {' '}
@@ -77,38 +54,93 @@ const RecruitDetailPage = (): JSX.Element => {
           springConfig={presets.default}
         />
       </div>
-      <div className={'text-lg'}>뉴스</div>
-      <div className={'flex flex-row flex-wrap justify-center items-center gap-4'}>
-        {
-          Object.keys(topic.news).map((key) => (
-            <DetailCheckbox key={key} name={key} topic={topic.news} onChange={onCheck} />
-          ))
-        }
+      <div className={'max-w-full grow flex flex-col justify-start items-center gap-4'}>
+        <div className={'max-w-full flex flex-col justify-center items-center gap-1'}>
+          <div className={'text-lg font-semibold'}>뉴스</div>
+          <div
+            className={`
+              max-w-full inline-flex flex-row flex-nowrap justify-start items-center overflow-x-auto whitespace-nowrap gap-4
+              before:block before:w-4 after:block after:w-4 py-3
+            `}
+          >
+            {
+              newsTopic.map((topic) => (
+                <DetailCheckbox
+                  key={topic.id}
+                  id={topic.id}
+                  title={topic.title}
+                  icon={topic.icon}
+                  onChange={onCheck}
+                />
+              ))
+            }
+          </div>
+        </div>
+        <div className={'max-w-full flex flex-col justify-center items-center gap-1'}>
+          <div className={'max-w-full text-lg font-semibold'}>스포츠</div>
+          <div
+            className={`
+            max-w-full inline-flex flex-row flex-nowrap justify-start items-center overflow-x-auto whitespace-nowrap gap-4
+            before:block before:w-4 after:block after:w-4 py-3
+          `}
+          >
+            {
+              sportsTopic.map((topic) => (
+                <DetailCheckbox
+                  key={topic.id}
+                  id={topic.id}
+                  title={topic.title}
+                  icon={topic.icon}
+                  onChange={onCheck}
+                />
+              ))
+            }
+          </div>
+        </div>
+        <div className={'max-w-full flex flex-col justify-center items-center gap-1'}>
+          <div className={'max-w-full text-lg font-semibold'}>게임</div>
+          <div
+            className={`
+            max-w-full inline-flex flex-row flex-nowrap justify-start items-center overflow-x-auto whitespace-nowrap gap-4
+            before:block before:w-4 after:block after:w-4 py-3
+          `}
+          >
+            {
+              gameTopic.map((topic) => (
+                <DetailCheckbox
+                  key={topic.id}
+                  id={topic.id}
+                  title={topic.title}
+                  icon={topic.icon}
+                  onChange={onCheck}
+                />
+              ))
+            }
+          </div>
+        </div>
+        <div className={'max-w-full flex flex-col justify-center items-center gap-1'}>
+          <div className={'max-w-full text-lg font-semibold'}>기타</div>
+          <div
+            className={`
+            max-w-full inline-flex flex-row flex-nowrap justify-start items-center overflow-x-auto whitespace-nowrap gap-4
+            before:block before:w-4 after:block after:w-4 py-3
+          `}
+          >
+            {
+              otherTopic.map((topic) => (
+                <DetailCheckbox
+                  key={topic.id}
+                  id={topic.id}
+                  title={topic.title}
+                  icon={topic.icon}
+                  onChange={onCheck}
+                />
+              ))
+            }
+          </div>
+        </div>
       </div>
-      <div className={'text-lg'}>스포츠</div>
-      <div className={'flex flex-row flex-wrap justify-center items-center gap-4'}>
-        {
-          Object.keys(topic.sports).map((key) => (
-            <DetailCheckbox key={key} name={key} topic={topic.sports} onChange={onCheck} />
-          ))
-        }
-      </div>
-      <div className={'text-lg'}>게임</div>
-      <div className={'flex flex-row flex-wrap justify-center items-center gap-4'}>
-        {
-          Object.keys(topic.game).map((key) => (
-            <DetailCheckbox key={key} name={key} topic={topic.game} onChange={onCheck} />
-          ))
-        }
-      </div>
-      <div className={'text-lg'}>기타</div>
-      <div className={'flex flex-row flex-wrap justify-center items-center gap-4'}>
-        {
-          Object.keys(topic.other).map((key) => (
-            <DetailCheckbox key={key} name={key} topic={topic.other} onChange={onCheck} />
-          ))
-        }
-      </div>
+      <button className={'rounded-full bg-sky-500 px-4 py-2 text-white font-semibold  hover:bg-sky-400 self-center'}>신청하기</button>
     </div>
   );
 }
