@@ -1,5 +1,5 @@
-import Banner from '@/components/Banner';
-import Introduce from '@/components/Introduce';
+import Banner from '@/components/main/Banner';
+import Introduce from '@/components/main/Introduce';
 
 const MainPage = (): JSX.Element => {
   return (

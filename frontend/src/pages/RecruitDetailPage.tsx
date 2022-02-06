@@ -2,6 +2,7 @@ import DetailCheckbox from '@/components/recruit/DetailCheckbox';
 import useQuery from '@/hooks/useQuery';
 import React, { useCallback, useLayoutEffect, useState } from 'react';
 import TextTransition, { presets } from 'react-text-transition';
+import { useMediaMatch } from 'rooks';
 
 const topic = {
   news: {
@@ -36,6 +37,8 @@ const RecruitDetailPage = (): JSX.Element => {
   const gen = useQuery('gen');
   const date = useQuery('date');
   
+  const isNarrow = useMediaMatch('(max-width: 600px)');
+
   const [index, setIndex] = useState(0);
   const [selected, setSelected] = useState<string[]>([]);
 
@@ -58,24 +61,24 @@ const RecruitDetailPage = (): JSX.Element => {
   }, []);
 
   return (
-    <div className={'container md:mx-auto grow flex flex-col justify-center items-center gap-3'}>
-      <div className={'text-2xl font-bold'}>
+    <div className={'md:container md:mx-auto grow flex flex-col justify-center items-center center gap-3'}>
+      <div className={'text-2xl font-bold text-centerr'}>
         {gen}기 {name} 훈련병에게{' '}
         <TextTransition
-          inline
+          inline={!isNarrow}
           className={'text-sky-500'}
-          text={selected.length > 0 ? allTopic[selected[index % selected.length]] : '어떤'}
+          text={selected.length > 0 ? `"${allTopic[selected[index % selected.length]]}"` : '어떤'}
           springConfig={presets.default}
         />
         {' '}
         <TextTransition
-          inline
+          inline={!isNarrow}
           text={selected.length > 0 ? '뉴스를 편지로 보냅니다' : '뉴스를 편지로 보낼까요?'}
           springConfig={presets.default}
         />
       </div>
       <div className={'text-lg'}>뉴스</div>
-      <div className={'flex flex-row flex-wrap gap-4'}>
+      <div className={'flex flex-row flex-wrap justify-center items-center gap-4'}>
         {
           Object.keys(topic.news).map((key) => (
             <DetailCheckbox key={key} name={key} topic={topic.news} onChange={onCheck} />
@@ -83,7 +86,7 @@ const RecruitDetailPage = (): JSX.Element => {
         }
       </div>
       <div className={'text-lg'}>스포츠</div>
-      <div className={'flex flex-row flex-wrap gap-4'}>
+      <div className={'flex flex-row flex-wrap justify-center items-center gap-4'}>
         {
           Object.keys(topic.sports).map((key) => (
             <DetailCheckbox key={key} name={key} topic={topic.sports} onChange={onCheck} />
@@ -91,7 +94,7 @@ const RecruitDetailPage = (): JSX.Element => {
         }
       </div>
       <div className={'text-lg'}>게임</div>
-      <div className={'flex flex-row flex-wrap gap-4'}>
+      <div className={'flex flex-row flex-wrap justify-center items-center gap-4'}>
         {
           Object.keys(topic.game).map((key) => (
             <DetailCheckbox key={key} name={key} topic={topic.game} onChange={onCheck} />
@@ -99,7 +102,7 @@ const RecruitDetailPage = (): JSX.Element => {
         }
       </div>
       <div className={'text-lg'}>기타</div>
-      <div className={'flex flex-row flex-wrap gap-4'}>
+      <div className={'flex flex-row flex-wrap justify-center items-center gap-4'}>
         {
           Object.keys(topic.other).map((key) => (
             <DetailCheckbox key={key} name={key} topic={topic.other} onChange={onCheck} />

@@ -2,7 +2,7 @@ import React from 'react';
 
 const AchievementsPage = (): JSX.Element => {
   return (
-    <div>
+    <div className={'grow'}>
       후기
     </div>
   );

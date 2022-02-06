@@ -1,4 +1,5 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
+import { useLocation } from 'wouter';
 
 const pattern = {
   name: '[가-힣][가-힣]+',
@@ -26,8 +27,12 @@ const getGeneration = (): number => {
 const inputWrapperStyle = 'flex flex-col justify-items-center items-start gap-1 group';
 
 const RecruitPage = (): JSX.Element => {
+  const formRef = useRef<HTMLFormElement>(null);
+  const nameRef = useRef<HTMLInputElement>(null);
   const [gen, setGen] = useState(getGeneration());
   const [date, setDate] = useState(getMinBirthday());
+
+  const [, navigate] = useLocation();
 
   const onGenChange: React.ChangeEventHandler<HTMLInputElement> = useCallback((event) => {
     setGen(Number(event.target.value));
@@ -37,15 +42,26 @@ const RecruitPage = (): JSX.Element => {
     setDate(event.target.value);
   }, []);
 
+  const onNext: React.MouseEventHandler<HTMLButtonElement> = useCallback((event) => {
+    const isValid = formRef.current?.checkValidity();
+
+    if (isValid) {
+      navigate(`/recruit/details?name=${nameRef.current?.value}&gen=${gen}&date=${date}`);
+    }
+
+    event.preventDefault();
+  }, [formRef, nameRef, gen, date]);
+
   return (
     <div className={'md:container md:mx-auto grow flex flex-col justify-center items-center gap-4'}>
-      <form action={'/recruit/details'} className={'flex flex-col justify-center items-stretch center gap-3'}>
+      <form ref={formRef} className={'flex flex-col justify-center items-stretch center gap-3'}>
         <div className={'text-xl text-center font-bold'}>
           신청할 훈련병의 정보를 기입해주세요
         </div>
         <div className={inputWrapperStyle}>
           <div className={'text-slate-400'}>이름</div>
           <input
+            ref={nameRef}
             required
             type={'text'}
             name={'name'}
@@ -88,7 +104,7 @@ const RecruitPage = (): JSX.Element => {
           />
           <div className={'invisible text-red-500 peer-invalid:visible text-sm'}>생년월일은, 만 19세 이상으로 설정하여야 합니다.</div>
         </div>
-        <button className={'rounded-full bg-sky-500 px-4 py-2 text-white font-semibold  hover:bg-sky-400 self-center'}>다음</button>
+        <button className={'rounded-full bg-sky-500 px-4 py-2 text-white font-semibold  hover:bg-sky-400 self-center'} onClick={onNext}>다음</button>
       </form>
     </div>
   );

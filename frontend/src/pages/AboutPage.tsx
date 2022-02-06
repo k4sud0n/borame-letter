@@ -2,7 +2,7 @@ import Header from '@/components/Header';
 
 const AboutPage = (): JSX.Element => {
   return (
-    <div className={'flex flex-col'}>
+    <div className={'grow flex flex-col'}>
       안녕
     </div>
   );
