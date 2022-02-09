@@ -2,15 +2,21 @@ from typing import Optional
 
 from fastapi import FastAPI
 
-from database import User
+from database import User, session
+
+from sender import sender
 
 app = FastAPI()
 
 @app.get("/")
 def main():
-    ed_user = User('haruair', 'Edward Kim', '1234')
-    ed_user.name        # 'haruair'
-    ed_user.password    # '1234'
-    str(ed_user.id)     # 'None'
-    return 0
+    # borame = User('이창연', 834, 2002, 12, 31)
+    # session.add(borame)
+    # session.commit()
+    # print(borame.id)
+
+
+    # sender('이창연', 2002, 12, 31)
+
+    return 'success'
 
