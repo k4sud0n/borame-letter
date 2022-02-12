@@ -1,6 +1,6 @@
 const AboutPage = (): JSX.Element => {
   return (
-    <div className={'grow md:container md:mx-auto flex flex-col py-12'}>
+    <div className={'grow md:container md:mx-auto p-3 flex flex-col'}>
       <div
         className={`
           flex flex-col justify-start items-start bg-slate-200 rounded-lg p-3 cursor-pointer transition-all

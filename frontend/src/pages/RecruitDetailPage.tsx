@@ -1,5 +1,5 @@
 import DetailCheckbox from '@/components/recruit/DetailCheckbox';
-import TopicUtil, { gameTopic, newsTopic, otherTopic, sportsTopic } from '@/constants/topic';
+import TopicUtil, { newsTopic, otherTopic, sportsTopic } from '@/constants/topic';
 import useQuery from '@/hooks/useQuery';
 import React, { useCallback, useEffect, useState } from 'react';
 import TextTransition, { presets } from 'react-text-transition';
@@ -86,27 +86,6 @@ const RecruitDetailPage = (): JSX.Element => {
           >
             {
               sportsTopic.map((topic) => (
-                <DetailCheckbox
-                  key={topic.id}
-                  id={topic.id}
-                  title={topic.title}
-                  icon={topic.icon}
-                  onChange={onCheck}
-                />
-              ))
-            }
-          </div>
-        </div>
-        <div className={'max-w-full flex flex-col justify-center items-center gap-1'}>
-          <div className={'max-w-full text-lg font-semibold'}>게임</div>
-          <div
-            className={`
-            max-w-full inline-flex flex-row flex-nowrap justify-start items-center overflow-x-auto whitespace-nowrap gap-4
-            before:block before:w-4 after:block after:w-4 py-3
-          `}
-          >
-            {
-              gameTopic.map((topic) => (
                 <DetailCheckbox
                   key={topic.id}
                   id={topic.id}

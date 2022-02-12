@@ -11,7 +11,7 @@ const getMinBirthday = (): string  => {
   const now = new Date();
 
   const year = now.getFullYear() - 19;
-  const month = now.getMonth().toString().padStart(2, '0');
+  const month = (now.getMonth() + 1).toString().padStart(2, '0');
   const date = now.getDate().toString().padStart(2, '0');
 
   return `${year}-${month}-${date}`;
@@ -82,8 +82,8 @@ const RecruitPage = (): JSX.Element => {
             hover:bg-slate-300 focus:border-slate-300 valid:border-sky-500 focus:valid:border-sky-500 invalid:border-red-500 focus:invalid:border-red-500 transition-all peer`}
             min={800}
             pattern={pattern.gen}
-            value={gen}
-            onChange={onGenChange}
+            value={gen.toString()}
+            onInput={onGenChange}
             placeholder={'기수'}
           />
           <div className={'invisible text-red-500 peer-invalid:visible text-sm'}>기수는 숫자로만 이루어져야 하며, 800기 이상이여야 합니다.</div>
