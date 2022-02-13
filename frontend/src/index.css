@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
 
+/* tailwind */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -15,6 +16,8 @@
         stroke-dashoffset: 0;
     }
 }
+
+/* CSS */
 
 body {
     margin: 0;
@@ -36,6 +39,51 @@ body {
     font-family: 'Noto Sans KR', sans-serif;
 }
 
+.spinner {
+    width: var(--spinner-size);
+    height: var(--spinner-size);
+    
+    position: relative;
+}
+
+.spinner > div {
+    position:absolute;
+
+    width: var(--spinner-size);
+    height: var(--spinner-size);
+    border-radius: var(--spinner-size);
+    border-width: var(--spinner-width);
+    border-color: inherit;
+
+    animation: spinner var(--spinner-time) infinite linear;
+}
+
+@keyframes spinner {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    25% {
+        transform: scale(0.5);
+        opacity: 1;
+    }
+
+    75% {
+        transform: scale(1.5);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+
+/* animation */
+
+/* slide */
 .slide-enter {
     transform: translateX(100%);
 }
@@ -50,4 +98,44 @@ body {
 .slide-exit-active {
     transform: translateX(-100%);
     transition: transform 250ms;
+}
+
+/* fade */
+.fade-enter {
+    opacity: 0;
+}
+.fade-enter-active {
+    opacity: 1;
+    transition: opacity 250ms;
+}
+
+.fade-exit {
+    opacity: 1;
+}
+.fade-exit-active {
+    opacity: 0;
+    transition: opacity 250ms;
+}
+
+/* fade-scale */
+.fade-scale-enter {
+    opacity: 0;
+    transform: scale(1.1);
+}
+.fade-scale-enter-active {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 250ms, transform 250ms;
+    transition-timing-function: ease-out;
+}
+
+.fade-scale-exit {
+    opacity: 1;
+    transform: scale(1);
+}
+.fade-scale-exit-active {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 250ms, transform 250ms;
+    transition-timing-function: ease-out;
 }
