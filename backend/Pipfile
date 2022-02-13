@@ -10,6 +10,8 @@ selenium = "*"
 beautifulsoup4 = "*"
 python-dotenv = "*"
 webdriver-manager = "*"
+sqlalchemy = "*"
+pymysql = "*"
 
 [dev-packages]
 
