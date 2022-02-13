@@ -20,6 +20,6 @@ def hi():
 
 @app.post("/submit")
 async def submit(user: NewUser):
-    # session.add(User('이창연', 834, 2002, 12, 31))
-    # session.commit()
+    session.add(User(user.name, user.cardinal_number, user.birth_year, user.birth_month, user.birth_date))
+    session.commit()
     return user
