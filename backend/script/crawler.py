@@ -80,6 +80,22 @@ def get_entertain_news():
     else: 
         return response.status_code
 
+def get_esports_news():
+    url = 'https://sports.daum.net/media-api/harmony/ranking.json?page=0&service=sports&size=20&category=esports&type=latest&date=1h'
+    response = requests.get(url)
+
+    news_titles = []
+
+    if response.status_code == 200:
+        json = response.json()['body']['data']
+        
+        for list in json:
+            news_titles.append(list['title'])
+
+        return news_titles
+    else: 
+        return response.status_code
+
 def get_korea_football():
     url = 'https://sports.daum.net/media-api/harmony/ranking.json?page=0&service=sports&size=20&category=soccer&type=latest&date=1h'
     response = requests.get(url)
@@ -155,7 +171,7 @@ def get_stock(code):
         soup = bs(html, 'html.parser')
         price = soup.select_one('#chart_area > div.rate_info > div > p.no_today > em.no_down > span.blind').get_text()
         
-        return price
+        return [datetime.now().strftime('%H:%M:%S'), price]
     else: 
         return response.status_code
 
@@ -167,23 +183,7 @@ def get_cryptocurrency(code):
         json = response.json()[0]
         price = json['tradePrice']
 
-        return format(int(price), ',')
-    else: 
-        return response.status_code
-
-def get_esports():
-    url = 'https://sports.daum.net/media-api/harmony/ranking.json?page=0&service=sports&size=20&category=esports&type=latest&date=1h'
-    response = requests.get(url)
-
-    news_titles = []
-
-    if response.status_code == 200:
-        json = response.json()['body']['data']
-        
-        for list in json:
-            news_titles.append(list['title'])
-
-        return news_titles
+        return [datetime.now().strftime('%H:%M:%S'), format(int(price), ',')]
     else: 
         return response.status_code
 
@@ -214,15 +214,3 @@ def get_covid_confirm_case():
         return {'total_case': total_case_before, 'update_time': update_time}
     else : 
         return response.status_code
-
-print(get_cryptocurrency('ETH'))
-
-# news_titles = ' / '.join(get_every_news())
-# today_weather = f'기온: {str(get_today_weather()["temperature"])}℃, 체감온도: {str(get_today_weather()["feels_like"])}℃, 최고기온: {str(get_today_weather()["max_temperature"])}℃, 최소기온: {str(get_today_weather()["min_temperature"])}℃'
-# covid_confirm_case = f'{get_covid_confirm_case()["update_time"]} {get_covid_confirm_case()["total_case"]}명입니다.'
-
-# content = f'안녕하세요! 공군 훈련병들의 인편지기 보라매인편입니다. 오늘도 힘든 훈련 하시느라 수고 많으셨습니다. 보라매 인편이 따끈따끈한 오늘자 사회 소식을 전달해드리겠습니다. <오늘의 뉴스> {news_titles} <오늘의 진주 날씨> {today_weather} <코로나 확진자 수> {covid_confirm_case} 오늘의 보라매 인편은 여기까지입니다. 오늘 하루도 수고 많으셨고 몸 건강히 수료하시길 바랍니다 :)'
-
-# file = open(f'../letters/{datetime.now().strftime("%Y-%m-%d")}.txt', 'w')
-# file.write(content)
-# file.close()
