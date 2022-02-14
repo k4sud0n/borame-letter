@@ -114,6 +114,8 @@ def sender(name, birth_year, birth_month, birth_date):
 
 users = session.query(User).all()
 
+print(users)
+
 # 병렬 처리해서 편지 보내는 속도 더 빠르기 하기
-for user in users:
-    sender(user.name, user.birth_year, user.birth_month, user.birth_date)    
+# for user in users:
+#     sender(user.name, user.birth_year, user.birth_month, user.birth_date)    

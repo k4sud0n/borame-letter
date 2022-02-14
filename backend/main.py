@@ -15,8 +15,8 @@ class NewUser(BaseModel):
     birth_date: float
 
 @app.get("/")
-def hi():
-    return 'hi'
+def main():
+    return 'Hello, World!'
 
 @app.post("/submit")
 async def submit(user: NewUser):
