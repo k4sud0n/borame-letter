@@ -169,9 +169,11 @@ def get_stock(code):
     if response.status_code == 200:
         html = response.text
         soup = bs(html, 'html.parser')
-        price = soup.select_one('#chart_area > div.rate_info > div > p.no_today > em.no_down > span.blind').get_text()
         
-        return [datetime.now().strftime('%H:%M:%S'), price]
+        name = soup.select_one('#middle > div.h_company > div.wrap_company > h2 > a').get_text()
+        price = soup.select_one('#chart_area > div.rate_info > div > p.no_today > em > span.blind').get_text()
+        
+        return [name, datetime.now().strftime('%H:%M:%S'), price]
     else: 
         return response.status_code
 

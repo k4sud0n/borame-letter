@@ -31,6 +31,24 @@ class User(Base):
     birth_year = Column(Integer)
     birth_month = Column(Integer)
     birth_date = Column(Integer)
+
+    # 구독 목록
+    every_news = Column(Boolean, default=True)
+    political_news = Column(Boolean, default=False)
+    world_news = Column(Boolean, default=False)
+    entertain_news = Column(Boolean, default=False)
+    esports_news = Column(Boolean, default=False)
+
+    korea_football = Column(Boolean, default=False)
+    world_football = Column(Boolean, default=False)
+    korea_baseball = Column(Boolean, default=False)
+    world_baseball = Column(Boolean, default=False)
+    
+    stock = Column(Boolean, default=False)
+    crpytocurrency = Column(Boolean, default=False)
+
+    today_weather = Column(Boolean, default=True)
+    covid_confirm_case = Column(Boolean, default=True)
     
     def __init__(self, name, cardinal_number, birth_year, birth_month, birth_date):
         self.name = name
