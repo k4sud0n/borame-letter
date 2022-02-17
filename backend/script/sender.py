@@ -17,12 +17,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.utils import ChromeType
 
-# database.py import
-current_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
-parent_dir = os.path.dirname(current_dir)
-sys.path.insert(0, parent_dir) 
-from database import User, session
-
 options = webdriver.ChromeOptions()
 options.add_argument('--headless')
 options.add_argument('--no-sandbox')
@@ -35,7 +29,7 @@ wait = WebDriverWait(driver, 10)
 
 load_dotenv()
 
-def sender(name, birth_year, birth_month, birth_date):
+def sender(name, birth_year, birth_month, birth_date, content):
     try:
         driver.get('https://www.airforce.mil.kr/user/indexSub.action?codyMenuSeq=156893223&siteId=last2&menuUIType=top')
 
@@ -88,11 +82,6 @@ def sender(name, birth_year, birth_month, birth_date):
         # 제목 입력
         driver.find_element(By.ID, 'title').send_keys(f'{datetime.now().strftime("%m월 %d일")} 보라매인편')
 
-        # 파일 열고 읽기
-        file = open(f'../letters/{datetime.now().strftime("%Y-%m-%d")}.txt', 'r')
-        content = file.read()
-        file.close()
-
         # 내용 입력
         driver.find_element(By.ID, 'contents').send_keys(content)
 
@@ -111,11 +100,3 @@ def sender(name, birth_year, birth_month, birth_date):
         logger.addHandler(file_handler)
     finally:
         driver.quit()
-
-users = session.query(User).all()
-
-print(users)
-
-# 병렬 처리해서 편지 보내는 속도 더 빠르기 하기
-# for user in users:
-#     sender(user.name, user.birth_year, user.birth_month, user.birth_date)    
