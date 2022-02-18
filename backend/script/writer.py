@@ -1,8 +1,11 @@
+import os
 import sys
 import inspect
+import time
+from multiprocessing import Process
 
-from crawler import *
-# from sender import sender
+from sender import sender
+from crawler import get_stock, get_cryptocurrency
 
 ## Importing database.py
 current_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
@@ -12,16 +15,16 @@ from database import User, session
 
 users = session.query(User).all()
 
-every_news = f"<오늘의 종합뉴스> {' / '.join(get_every_news())}\n"
-political_news = f"<오늘의 정치뉴스> {' / '.join(get_political_news())}\n"
-world_news = f"<오늘의 국제뉴스> {' / '.join(get_world_news())}\n"
-entertain_news = f"<오늘의 연예뉴스> {' / '.join(get_entertain_news())}\n"
-esports_news = f"<오늘의 이스포츠 뉴스> {' / '.join(get_esports_news())}\n"
+every_news = open('../letters/every_news.txt', 'r').read()
+political_news = open('../letters/political_news.txt', 'r').read()
+world_news = open('../letters/world_news.txt', 'r').read()
+entertain_news = open('../letters/entertain_news.txt', 'r').read()
+esports_news = open('../letters/esports_news.txt', 'r').read()
 
-korea_football = f"<오늘의 국내축구 뉴스> {' / '.join(get_korea_football())}\n"
-world_football = f"<오늘의 해외축구 뉴스> {' / '.join(get_world_football())}\n"
-korea_baseball = f"<오늘의 국내야구 뉴스> {' / '.join(get_korea_baseball())}\n"
-world_baseball = f"<오늘의 해외야구 뉴스> {' / '.join(get_world_baseball())}\n"
+korea_football = open('../letters/korea_football.txt', 'r').read()
+world_football = open('../letters/world_football.txt', 'r').read()
+korea_baseball = open('../letters/korea_baseball.txt', 'r').read()
+world_baseball = open('../letters/world_baseball.txt', 'r').read()
 
 def stock(code):
     return f"<오늘의 주식> {get_stock(code)[0]}: {get_stock(code)[1]}시 기준 {get_stock(code)[2]}원\n"
@@ -29,15 +32,13 @@ def stock(code):
 def cryptocurrency(code):
     return f"<오늘의 암호화폐> {code}: {get_cryptocurrency(code)[0]}시 기준 {get_cryptocurrency(code)[1]}원\n"
 
-today_weather = f'<오늘의 진주 날씨> 기온: {str(get_today_weather()["temperature"])}℃, 체감온도: {str(get_today_weather()["feels_like"])}℃, 최고기온: {str(get_today_weather()["max_temperature"])}℃, 최소기온: {str(get_today_weather()["min_temperature"])}℃\n'
-covid_confirm_case = f'<코로나 확진자 수> 오늘의 {get_covid_confirm_case()["update_time"]}은 {get_covid_confirm_case()["total_case"]}명입니다.\n'
+today_weather = open('../letters/weather.txt', 'r').read()
+covid_confirm_case = open('../letters/covid.txt', 'r').read()
 
 content_start = '님 안녕하세요! 공군 훈련병들의 인편지기 보라매인편입니다. \n오늘도 힘든 훈련 하시느라 수고 많으셨습니다. 보라매 인편이 따끈따끈한 오늘자 사회 소식을 전달해드리겠습니다.\n' 
 content_end = '오늘의 보라매 인편은 여기까지입니다. 오늘 하루도 수고 많으셨고 몸 건강히 수료하시길 바랍니다 :)'
 
-
-# 병렬 처리해서 편지 보내는 속도 더 빠르기 하기
-for user in users:
+def writer(user):
     content = user.name + content_start
 
     if user.every_news:
@@ -65,4 +66,10 @@ for user in users:
 
     content += today_weather + covid_confirm_case + content_end
 
-    # sender(user.name, user.birth_year, user.birth_month, user.birth_date, content)  
+    sender(user.name, user.birth_year, user.birth_month, user.birth_date, content)
+
+if __name__ == '__main__':
+    # 유저수가 많으면 프로세스 수도 많아져서 오류남
+    for user in users:
+        p = Process(target=writer, args=(user, ))
+        p.start()
