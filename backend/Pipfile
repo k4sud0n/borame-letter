@@ -12,6 +12,7 @@ python-dotenv = "*"
 webdriver-manager = "*"
 sqlalchemy = "*"
 pymysql = "*"
+numba = "*"
 
 [dev-packages]
 

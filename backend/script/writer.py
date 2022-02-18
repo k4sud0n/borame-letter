@@ -1,8 +1,7 @@
 import os
 import sys
 import inspect
-import time
-from multiprocessing import Process
+import multiprocessing
 
 from sender import sender
 from crawler import get_stock, get_cryptocurrency
@@ -66,10 +65,18 @@ def writer(user):
 
     content += today_weather + covid_confirm_case + content_end
 
-    sender(user.name, user.birth_year, user.birth_month, user.birth_date, content)
+    if 1100 < len(content) < 2200:
+        sender(user.name, user.birth_year, user.birth_month, user.birth_date, content[:1100])
+        sender(user.name, user.birth_year, user.birth_month, user.birth_date, content[1100:len(content)])
+    elif len(content) > 2200:
+        sender(user.name, user.birth_year, user.birth_month, user.birth_date, content[:1100])
+        sender(user.name, user.birth_year, user.birth_month, user.birth_date, content[1100:2200])
+        sender(user.name, user.birth_year, user.birth_month, user.birth_date, content[2200:len(content)])
+    else:
+        sender(user.name, user.birth_year, user.birth_month, user.birth_date, content)
+
+    print(f'{user.name} done!')
 
 if __name__ == '__main__':
-    # 유저수가 많으면 프로세스 수도 많아져서 오류남
-    for user in users:
-        p = Process(target=writer, args=(user, ))
-        p.start()
+    pool = multiprocessing.Pool(processes=4)
+    pool.map(writer, users)
