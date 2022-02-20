@@ -10,11 +10,14 @@ from database import User, Notice, Review, session
 
 app = FastAPI()
 
-origins = ["*"]
+origins = [
+    "http://localhost:3000",
+    "https://local.suyong.me"
+]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
