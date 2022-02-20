@@ -22,45 +22,50 @@ interface Topic {
 
 export const newsTopic: Topic[] = [
   {
-    id: 'news',
-    title: '종합뉴스',
+    id: 'every_news',
+    title: '종합',
     icon: NewsIcon,
   },
   {
-    id: 'politics',
+    id: 'political_news',
     title: '정치',
     icon: PoliticsIcon,
   },
   {
-    id: 'world',
+    id: 'world_news',
     title: '국제',
     icon: WorldIcon,
   },
   {
-    id: 'entertain',
+    id: 'entertain_news',
     title: '연예',
     icon: EntertainIcon,
+  },
+  {
+    id: 'esports_news',
+    title: 'e-스포츠',
+    icon: ESportsIcon,
   },
 ];
 
 export const sportsTopic: Topic[] = [
   {
-    id: 'k-soccer',
+    id: 'korea_football',
     title: '국내축구',
     icon: KSoccerIcon,
   },
   {
-    id: 'w-soccer',
+    id: 'world_football',
     title: '해외축구',
     icon: WSoccerIcon,
   },
   {
-    id: 'k-baseball',
+    id: 'korea_baseball',
     title: '국내야구',
     icon: KBaseballIcon,
   },
   {
-    id: 'w-baseball',
+    id: 'world_baseball',
     title: '해외야구',
     icon: WBaseballIcon,
   },
@@ -73,14 +78,9 @@ export const otherTopic: Topic[] = [
     icon: StockIcon,
   },
   {
-    id: 'bitcoin',
+    id: 'cryptocurrency',
     title: '암호화폐',
     icon: BitcoinIcon,
-  },
-  {
-    id: 'esports',
-    title: 'e-스포츠',
-    icon: ESportsIcon,
   },
 ];
 

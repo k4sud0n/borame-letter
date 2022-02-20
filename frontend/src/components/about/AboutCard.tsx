@@ -4,12 +4,13 @@ import { Link } from 'wouter';
 export interface AboutCardProps {
   id: string;
   title: string;
+  writer: string;
   summary?: string;
   date?: Date;
   thumbnail?: string;
 }
 
-const AboutCard = React.memo(({ id, title, summary, date, thumbnail }: AboutCardProps): JSX.Element => (
+const AboutCard = React.memo(({ id, title, writer, summary, date, thumbnail }: AboutCardProps): JSX.Element => (
   <Link
     href={`/about/${id}`}
     className={`
@@ -26,9 +27,11 @@ const AboutCard = React.memo(({ id, title, summary, date, thumbnail }: AboutCard
     <div className={'grow shrink-0 flex flex-col justify-start items-start p-3'}>
       <div className={'text-lg font-bold'}>{title}</div>
       <div className={'text-md text-slate-500 font-light'}>{summary}</div>
-      {date && (
-        <div className={'text-sm self-end text-slate-500'}>
-          {date.getFullYear()}. {date.getMonth() + 1}. {date.getDate().toString().padStart(2, '0')}.
+      {(date || writer) && (
+        <div className={'text-sm self-end text-slate-500 flex flex-row gap-1'}>
+          <span>{writer}</span>
+          {date && writer && <span className={'bg-slate-500 self-stretch min-w-[1px] min-h-[1px] my-[3px]'} />}
+          {date && <span>{date.getFullYear()}. {date.getMonth() + 1}. {date.getDate().toString().padStart(2, '0')}.</span>}
         </div>
       )}
     </div>
