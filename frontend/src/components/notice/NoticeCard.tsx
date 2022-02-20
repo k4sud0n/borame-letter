@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'wouter';
 
-export interface AboutCardProps {
+export interface NoticeCardProps {
   id: string;
   title: string;
   writer: string;
@@ -10,7 +10,7 @@ export interface AboutCardProps {
   thumbnail?: string;
 }
 
-const AboutCard = React.memo(({ id, title, writer, summary, date, thumbnail }: AboutCardProps): JSX.Element => (
+const NoticeCard = React.memo(({ id, title, writer, summary, date, thumbnail }: NoticeCardProps): JSX.Element => (
   <Link
     href={`/about/${id}`}
     className={`
@@ -38,4 +38,4 @@ const AboutCard = React.memo(({ id, title, writer, summary, date, thumbnail }: A
   </Link>
 ));
 
-export default AboutCard;
+export default NoticeCard;

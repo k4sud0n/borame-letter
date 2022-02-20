@@ -5,11 +5,14 @@ export interface DetailCheckboxProps {
   icon: IconifyIcon | string;
   id: string;
   title: string;
+  extra?: string;
+  extraPattern?: string;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  onExtra?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
-const DetailCheckbox = React.memo(({ icon, id, title, onChange }: DetailCheckboxProps): JSX.Element => (
-  <span>
+const DetailCheckbox = React.memo(({ icon, id, title, onChange, extra, extraPattern, onExtra }: DetailCheckboxProps): JSX.Element => (
+  <span className={'flex flex-col gap-3 items-center select-none'}>
     <input type={'checkbox'} id={id} className={'hidden peer'} onChange={onChange} />
     <label
       htmlFor={id}
@@ -25,6 +28,24 @@ const DetailCheckbox = React.memo(({ icon, id, title, onChange }: DetailCheckbox
         {title}
       </div>
     </label>
+    {
+      extra
+        ? (
+          <input
+            type={'text'}
+            name={id}
+            pattern={extraPattern}
+            required={extra !== undefined && !!(document.getElementById(id) as HTMLInputElement)?.checked}
+            className={`border-2 outline-none border-slate-100 bg-slate-100 rounded-lg p-3
+            hover:bg-slate-300 focus:border-slate-300 valid:border-sky-500 focus:valid:border-sky-500 invalid:border-red-500 focus:invalid:border-red-500 transition-all
+              origin-top scale-y-0 w-0 peer-checked:scale-y-100 peer-checked:w-full
+            `}
+            placeholder={extra}
+            onChange={onExtra}
+          />
+        )
+        : null
+    }
   </span>
 ));
 

@@ -1,8 +1,10 @@
 import DetailCheckbox from '@/components/recruit/DetailCheckbox';
-import TopicUtil, { newsTopic, otherTopic, sportsTopic } from '@/constants/topic';
+import Endpoints from '@/constants/endpoints';
+import TopicUtil, { newsTopic, otherTopic, sportsTopic, Topic } from '@/constants/topic';
 import useQuery from '@/hooks/useQuery';
+import useRequest from '@/hooks/useRequest';
 import LetterRequest, { Category } from '@/types/LetterRequest';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import TextTransition, { presets } from 'react-text-transition';
 import { useMediaMatch } from 'rooks';
 
@@ -11,10 +13,15 @@ const RecruitDetailPage = (): JSX.Element => {
   const gen = useQuery('gen');
   const date = useQuery('date');
 
+  const formRef = useRef<HTMLFormElement>(null);
   const isNarrow = useMediaMatch('(max-width: 600px)');
+
+  const { data, error, fetcher } = useRequest<LetterRequest>(Endpoints.LETTER);
 
   const [index, setIndex] = useState(0);
   const [selected, setSelected] = useState<(keyof Category)[]>([]);
+  const [stock, setStock] = useState('');
+  const [crypto, setCrypto] = useState('');
 
   const onCheck: React.ChangeEventHandler<HTMLInputElement> = useCallback((event) => {
     const { checked, id } = event.target;
@@ -30,7 +37,16 @@ const RecruitDetailPage = (): JSX.Element => {
     }
   }, []);
 
-  const onSubmit = useCallback(async () => {
+  const onExtraData = useCallback((topic: Topic, event: React.ChangeEvent<HTMLInputElement>) => {
+    if (topic.id === 'stock') setStock(event.target.value);
+    if (topic.id === 'cryptocurrency') setCrypto(event.target.value);
+  }, []);
+
+  const onSubmit: React.MouseEventHandler<HTMLButtonElement> = useCallback(async (event) => {
+    event.preventDefault();
+
+    if (!formRef.current?.checkValidity()) return;
+
     if (name && gen && date) {
       const dateObj = new Date(date);
       const category: Category = {
@@ -60,26 +76,14 @@ const RecruitDetailPage = (): JSX.Element => {
         }
       });
 
-      const data: LetterRequest = {
+      console.log({
         name,
         cardinal_number: Number(gen),
         birth_year: dateObj.getFullYear(),
         birth_month: dateObj.getMonth() + 1,
         birth_date: dateObj.getDate(),
         category,
-      };
-
-      console.log('request', data);
-      const response = await fetch('https://local.sihyun.codes/user', {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-          'Content-Type': 'application/json',
-        }
       });
-
-      console.log('response', response);
-      console.log('json', await response.json());
     }
   }, [name, gen, date, selected]);
 
@@ -92,7 +96,10 @@ const RecruitDetailPage = (): JSX.Element => {
   }, [selected]);
 
   return (
-    <div className={'md:container md:mx-auto grow flex flex-col justify-center items-center center gap-6 py-12'}>
+    <form
+      ref={formRef}
+      className={'md:container md:mx-auto grow flex flex-col justify-center items-center center gap-6 py-12'}
+    >
       <div className={'text-2xl font-bold text-centerr'}>
         {gen}기 {name} 훈련병에게{' '}
         <TextTransition
@@ -164,9 +171,12 @@ const RecruitDetailPage = (): JSX.Element => {
                 <DetailCheckbox
                   key={topic.id}
                   id={topic.id}
+                  extra={topic.extra}
+                  extraPattern={topic.extraPattern}
                   title={topic.title}
                   icon={topic.icon}
                   onChange={onCheck}
+                  onExtra={(event) => onExtraData(topic, event)}
                 />
               ))
             }
@@ -179,7 +189,7 @@ const RecruitDetailPage = (): JSX.Element => {
       >
         신청하기
       </button>
-    </div>
+    </form>
   );
 }
 

@@ -14,10 +14,12 @@ import ESportsIcon from '@iconify/icons-mdi/computer';
 import BitcoinIcon from '@iconify/icons-mdi/bitcoin';
 import StockIcon from '@iconify/icons-mdi/chart-finance';
 
-interface Topic {
+export interface Topic {
   id: string;
   title: string;
   icon: IconifyIcon | string;
+  extra?: string;
+  extraPattern?: string;
 }
 
 export const newsTopic: Topic[] = [
@@ -76,11 +78,15 @@ export const otherTopic: Topic[] = [
     id: 'stock',
     title: '주식',
     icon: StockIcon,
+    extra: '종목코드 (ex: 005930)',
+    extraPattern: '[0-9]{6}',
   },
   {
     id: 'cryptocurrency',
     title: '암호화폐',
     icon: BitcoinIcon,
+    extra: '심볼 (ex: BTC)',
+    extraPattern: '[A-Z]{3,}(?:-[A-Z]{3,})?',
   },
 ];
 
