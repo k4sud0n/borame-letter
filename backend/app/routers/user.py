@@ -59,7 +59,7 @@ async def patch_user(user: PatchUser):
         session.commit()
         return user
     else:
-        raise HTTPException(status_code=403)
+        raise HTTPException(status_code=403, detail="User doesn't exists")
 
 @router.post('/check')
 async def check_user(user: CheckUser):
