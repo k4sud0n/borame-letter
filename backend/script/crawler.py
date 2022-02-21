@@ -21,13 +21,13 @@ async def get_every_news():
         titles = soup.select_one('body > div.container-doc > main > section > div > div.content-article > div.box_g.box_news_issue > ul').select('li > div > div > strong > a')
         
         for title in titles:
-            news_titles.append(title.get_text(" ", strip=True))
+            news_titles.append(title.get_text(' ', strip=True))
 
         with open('../letters/every_news.txt', 'w') as f:
             f.write(f"<오늘의 종합뉴스> {' / '.join(news_titles)}\n")
     else: 
         with open('../letters/every_news.txt', 'w') as f:
-            f.write(f"<오늘의 종합뉴스> 이런! 오늘의 종합뉴스를 불러오는데 실패했습니다 ㅠㅠ\n")
+            f.write(f'<오늘의 종합뉴스> 이런! 오늘의 종합뉴스를 불러오는데 실패했습니다 ㅠㅠ\n')
 
 async def get_political_news():
     url = 'https://news.daum.net/politics'
@@ -41,13 +41,13 @@ async def get_political_news():
         titles = soup.select_one('body > div.container-doc.cont-category > main > section > div.main-sub > div.box_g.box_news_major > ul').select('li > strong > a')
         
         for title in titles:
-            news_titles.append(title.get_text(" ", strip=True))
+            news_titles.append(title.get_text(' ', strip=True))
 
         with open('../letters/political_news.txt', 'w') as f:
             f.write(f"<오늘의 정치뉴스> {' / '.join(news_titles)}\n")
     else: 
         with open('../letters/political_news.txt', 'w') as f:
-            f.write(f"<오늘의 정치뉴스> 이런! 오늘의 정치뉴스를 불러오는데 실패했습니다 ㅠㅠ\n")
+            f.write(f'<오늘의 정치뉴스> 이런! 오늘의 정치뉴스를 불러오는데 실패했습니다 ㅠㅠ\n')
 
 async def get_world_news():
     url = 'https://news.daum.net/foreign'
@@ -61,13 +61,13 @@ async def get_world_news():
         titles = soup.select_one('body > div.container-doc.cont-category > main > section > div.main-sub > div.box_g.box_news_major > ul').select('li > strong > a')
         
         for title in titles:
-            news_titles.append(title.get_text(" ", strip=True))
+            news_titles.append(title.get_text(' ', strip=True))
 
         with open('../letters/world_news.txt', 'w') as f:
             f.write(f"<오늘의 국제뉴스> {' / '.join(news_titles)}\n")
     else: 
         with open('../letters/world_news.txt', 'w') as f:
-            f.write(f"<오늘의 국제뉴스> 이런! 오늘의 국제뉴스를 불러오는데 실패했습니다 ㅠㅠ\n")
+            f.write(f'<오늘의 국제뉴스> 이런! 오늘의 국제뉴스를 불러오는데 실패했습니다 ㅠㅠ\n')
 
 async def get_entertain_news():
     url = 'https://entertain.daum.net/ranking/popular'
@@ -81,13 +81,13 @@ async def get_entertain_news():
         titles = soup.select_one('#mArticle > div.ranking_list > ol').select('li > div > div > div > strong > a')
         
         for title in titles:
-            news_titles.append(title.get_text(" ", strip=True))
+            news_titles.append(title.get_text(' ', strip=True))
 
         with open('../letters/entertain_news.txt', 'w') as f:
             f.write(f"<오늘의 연예뉴스> {' / '.join(news_titles)}\n")
     else: 
         with open('../letters/entertain_news.txt', 'w') as f:
-            f.write(f"<오늘의 연예뉴스> 이런! 오늘의 연예뉴스 불러오는데 실패했습니다 ㅠㅠ\n")
+            f.write(f'<오늘의 연예뉴스> 이런! 오늘의 연예뉴스를 불러오는데 실패했습니다 ㅠㅠ\n')
 
 async def get_esports_news():
     url = 'https://sports.daum.net/media-api/harmony/ranking.json?page=0&service=sports&size=20&category=esports&type=latest&date=1h'
@@ -105,7 +105,7 @@ async def get_esports_news():
             f.write(f"<오늘의 이스포츠 뉴스> {' / '.join(news_titles)}\n")
     else: 
         with open('../letters/esports_news.txt', 'w') as f:
-            f.write(f"<오늘의 이스포츠 뉴스> 이런! 오늘의 이스포츠 뉴스를 불러오는데 실패했습니다 ㅠㅠ\n")
+            f.write(f'<오늘의 이스포츠 뉴스> 이런! 오늘의 이스포츠 뉴스를 불러오는데 실패했습니다 ㅠㅠ\n')
 
 async def get_korea_football():
     url = 'https://sports.daum.net/media-api/harmony/ranking.json?page=0&service=sports&size=20&category=soccer&type=latest&date=1h'
@@ -123,7 +123,7 @@ async def get_korea_football():
             f.write(f"<오늘의 국내축구 뉴스> {' / '.join(news_titles)}\n")
     else: 
         with open('../letters/korea_football.txt', 'w') as f:
-            f.write(f"<오늘의 국내축구 뉴스> 이런! 오늘의 국내축구 뉴스를 불러오는데 실패했습니다 ㅠㅠ\n")
+            f.write(f'<오늘의 국내축구 뉴스> 이런! 오늘의 국내축구 뉴스를 불러오는데 실패했습니다 ㅠㅠ\n')
 
 async def get_world_football():
     url = 'https://sports.daum.net/media-api/harmony/ranking.json?page=0&service=sports&size=20&category=worldsoccer&type=latest&date=1h'
@@ -141,7 +141,7 @@ async def get_world_football():
             f.write(f"<오늘의 해외축구 뉴스> {' / '.join(news_titles)}\n")
     else:
         with open('../letters/world_football.txt', 'w') as f:
-            f.write(f"<오늘의 해외축구 뉴스> 이런! 오늘의 해외축구 뉴스를 불러오는데 실패했습니다 ㅠㅠ\n")
+            f.write(f'<오늘의 해외축구 뉴스> 이런! 오늘의 해외축구 뉴스를 불러오는데 실패했습니다 ㅠㅠ\n')
 
 async def get_korea_baseball():
     url = 'https://sports.daum.net/media-api/harmony/ranking.json?page=0&service=sports&size=20&category=baseball&type=latest&date=1h'
@@ -159,7 +159,7 @@ async def get_korea_baseball():
             f.write(f"<오늘의 국내야구 뉴스> {' / '.join(news_titles)}\n")
     else: 
         with open('../letters/korea_baseball.txt', 'w') as f:
-            f.write(f"<오늘의 국내야구 뉴스> 이런! 오늘의 국내야구 뉴스를 불러오는데 실패했습니다 ㅠㅠ\n")
+            f.write(f'<오늘의 국내야구 뉴스> 이런! 오늘의 국내야구 뉴스를 불러오는데 실패했습니다 ㅠㅠ\n')
 
 async def get_world_baseball():
     url = 'https://sports.daum.net/media-api/harmony/ranking.json?page=0&service=sports&size=20&category=worldbaseball&type=latest&date=1h'
@@ -177,7 +177,7 @@ async def get_world_baseball():
             f.write(f"<오늘의 해외야구 뉴스> {' / '.join(news_titles)}\n")
     else: 
         with open('../letters/world_baseball.txt', 'w') as f:
-            f.write(f"<오늘의 해외야구 뉴스> 이런! 오늘의 해외야구 뉴스를 불러오는데 실패했습니다 ㅠㅠ\n")
+            f.write(f'<오늘의 해외야구 뉴스> 이런! 오늘의 해외야구 뉴스를 불러오는데 실패했습니다 ㅠㅠ\n')
 
 def get_stock(code):
     url = f'https://finance.naver.com/item/main.nhn?code={code}'
@@ -224,7 +224,7 @@ async def get_today_weather():
             f.write(f'<오늘의 진주 날씨> 기온: {str(temperature)}℃, 체감온도: {str(feels_like)}℃, 최고기온: {str(max_temperature)}℃, 최소기온: {str(min_temperature)}℃\n')
     else: 
         with open('../letters/weather.txt', 'w') as f:
-            f.write(f"<오늘의 진주 날씨> 이런! 오늘의 진주 날씨를 불러오는데 실패했습니다 ㅠㅠ\n")
+            f.write(f'<오늘의 진주 날씨> 이런! 오늘의 진주 날씨를 불러오는데 실패했습니다 ㅠㅠ\n')
 
 async def get_covid_confirm_case():
     url = 'https://api.corona-19.kr/korea/?serviceKey=' + str(os.environ.get('COVID_KEY'))
@@ -238,7 +238,7 @@ async def get_covid_confirm_case():
             f.write(f'<코로나 확진자 수> 오늘의 {update_time}은 {total_case_before}명입니다.\n')
     else: 
         with open('../letters/covid.txt', 'w') as f:
-            f.write(f"<코로나 확진자 수> 이런! 오늘의 코로나 확진자 수를 불러오는데 실패했습니다 ㅠㅠ\n")
+            f.write(f'<코로나 확진자 수> 이런! 오늘의 코로나 확진자 수를 불러오는데 실패했습니다 ㅠㅠ\n')
 
 async def process_async():
     await asyncio.wait([

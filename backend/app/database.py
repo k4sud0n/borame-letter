@@ -73,7 +73,7 @@ class User(Base):
         self.cryptocurrency = cryptocurrency
 
     def __repr__(self):
-        return "<User('%s', '%s', '%s/%s/%s', 'every_news: %s', 'political_news: %s', 'world_news: %s', 'entertain_news: %s', 'esports_news: %s', 'korea_football: %s', 'world_football: %s', 'korea_baseball: %s', 'world_baseball: %s', 'stock: %s', 'cryptocurrency: %s')>" % (self.name, self.cardinal_number, self.birth_year, self.birth_month, self.birth_date, self.every_news, self.political_news, self.world_news, self.entertain_news, self.esports_news, self.korea_football, self.world_football, self.korea_baseball, self.world_baseball, self.stock, self.cryptocurrency)
+        return '<User("%s", "%s", "%s/%s/%s", "every_news: %s", "political_news: %s", "world_news: %s", "entertain_news: %s", "esports_news: %s", "korea_football: %s", "world_football: %s", "korea_baseball: %s", "world_baseball: %s", "stock: %s", "cryptocurrency: %s")>' % (self.name, self.cardinal_number, self.birth_year, self.birth_month, self.birth_date, self.every_news, self.political_news, self.world_news, self.entertain_news, self.esports_news, self.korea_football, self.world_football, self.korea_baseball, self.world_baseball, self.stock, self.cryptocurrency)
 
 class Notice(Base):
     __tablename__ = 'notice'
