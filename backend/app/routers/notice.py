@@ -18,12 +18,12 @@ router = APIRouter(
 #     content: str
 #     writer: str
 
-@router.get('/')
+@router.get('/', status_code=200)
 async def get_notice():
     notices = session.query(Notice).order_by(desc(Notice.id)).all()
     return notices
 
-@router.get('/{notice_id}')
+@router.get('/{notice_id}', status_code=200)
 async def read_notice(notice_id):
     notice = session.query(Notice).filter(Notice.id == notice_id).first()
     

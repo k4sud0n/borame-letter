@@ -99,13 +99,15 @@ class Review(Base):
     title = Column(String(length=100), nullable=False)
     content = Column(String(length=5000), nullable=False)
     writer = Column(String(length=10), nullable=False)
+    password = Column(String(length=64), nullable=False)
     rating = Column(Integer, nullable=False)
     created_at = Column(DateTime(timezone=True), nullable=False, server_default=func.now())
 
-    def __init__(self, title, content, writer, rating):
+    def __init__(self, title, content, writer, password, rating):
         self.title = title
         self.content = content
         self.writer = writer
+        self.password = password
         self.rating = rating
 
     def __repr__(self):
