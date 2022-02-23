@@ -7,15 +7,15 @@ const Header = () => {
   const replace = useMemo(() => location !== '/', [location]);
 
   const aboutInclude = useMemo(() => {
-    if (location.includes('/about')) {
+    if (location.includes('/notice')) {
       return 'underline underline-offset-4 decoration-2 decoration-dotted text-sky-500';
     }
 
     return 'decoration-0';
   }, [location]);
 
-  const achievementsInclude = useMemo(() => {
-    if (location.includes('/achievements')) {
+  const reviewInclude = useMemo(() => {
+    if (location.includes('/review')) {
       return 'underline underline-offset-4 decoration-2 decoration-dotted text-sky-500';
     }
 
@@ -39,8 +39,8 @@ const Header = () => {
         </Link>
 
         <nav className={'md:ml-auto flex flex-wrap items-center text-base justify-center text-center'}>
-          <Link replace={replace} className={`mr-2.5 ml-2.5 hover:text-sky-500 transition-all ${aboutInclude}`} href="/about">공지사항</Link>
-          <Link replace={replace} className={`mr-2.5 ml-2.5 hover:text-sky-500 transition-all ${achievementsInclude}`} href="/achievements">후기</Link>
+          <Link replace={replace} className={`mr-2.5 ml-2.5 hover:text-sky-500 transition-all ${aboutInclude}`} href="/notice">공지사항</Link>
+          <Link replace={replace} className={`mr-2.5 ml-2.5 hover:text-sky-500 transition-all ${reviewInclude}`} href="/review">후기</Link>
           <Link replace={replace} className={`mr-2.5 ml-2.5 hover:text-sky-500 transition-all ${recruitInclude}`} href="/recruit">신청하기</Link>
         </nav>
       </div>

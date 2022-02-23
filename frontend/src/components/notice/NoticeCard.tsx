@@ -12,7 +12,7 @@ export interface NoticeCardProps {
 
 const NoticeCard = React.memo(({ id, title, writer, summary, date, thumbnail }: NoticeCardProps): JSX.Element => (
   <Link
-    href={`/about/${id}`}
+    href={`/notice/${id}`}
     className={`
       flex flex-row justify-start items-start bg-slate-200 rounded-lg cursor-pointer transition-all gap
       border-4 border-slate-200

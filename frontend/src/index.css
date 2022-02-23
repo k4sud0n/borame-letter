@@ -35,8 +35,20 @@ body {
     overflow-x: hidden;
 }
 
-* {
-    font-family: 'Noto Sans KR', sans-serif;
+.pretty-scroll::-webkit-scrollbar {
+    background: transparent;
+    position: absolute;
+}
+.pretty-scroll::-webkit-scrollbar-thumb {
+    background: rgba(45, 45, 45, 0.3);
+    border-radius: 100px;
+    border: solid 4px transparent;
+    padding: 4px;
+    background-clip: padding-box;
+}
+.pretty-scroll::-webkit-scrollbar-track {
+    background: transparent;
+    position: absolute;
 }
 
 .spinner {

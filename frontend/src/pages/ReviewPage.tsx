@@ -1,30 +1,38 @@
-import NoticeCard from '@/components/notice/NoticeCard';
 import Spinner from '@/components/common/Spinner';
-import React from 'react';
-import { CSSTransition } from 'react-transition-group';
-import useSWR from 'swr';
+import ReviewCard from '@/components/review/ReviewCard';
 import Endpoints from '@/constants/endpoints';
-import NoticePost from '@/types/NoticePost';
+import useSWR from 'swr';
+import { CSSTransition } from 'react-transition-group';
+import Review from '@/types/Review';
 import ErrorViewer from '@/components/ErrorViewer';
 
-const NoticePage = (): JSX.Element => {
-  const { data, error } = useSWR<NoticePost[]>(Endpoints.NOTICE_LIST);
+const ReviewPage = (): JSX.Element => {
+  const { data, error } = useSWR<Review[]>(Endpoints.REVIEW_LIST);
 
   return (
     <div className={'grow relative'}>
       <CSSTransition in={!!data} timeout={250} classNames={'fade-scale'} mountOnEnter unmountOnExit>
         <div className={'absolute inset-0 grow md:container md:mx-auto p-3 flex flex-col gap-3'}>
           {
-              data?.map((post) => (
-                <NoticeCard
-                  key={post.id}
-                  id={post.id}
-                  title={post.title}
-                  summary={post.content.slice(0, 50)}
-                  date={new Date(post.created_at)}
-                  writer={post.writer}
-                />
-              ))
+            (data?.length ?? 0) > 0
+              ? (
+                data?.map((post) => (
+                  <ReviewCard
+                    key={post.id}
+                    id={post.id}
+                    title={post.title}
+                    star={post.rating}
+                    summary={post.content.slice(0, 50)}
+                    date={new Date(post.created_at)}
+                    writer={post.writer}
+                  />
+                ))
+              )
+              : (
+                <div>
+                  아직 아무런 리뷰가 없어요
+                </div>
+              )
           }
         </div>
       </CSSTransition>
@@ -42,4 +50,4 @@ const NoticePage = (): JSX.Element => {
   );
 };
 
-export default NoticePage;
+export default ReviewPage;

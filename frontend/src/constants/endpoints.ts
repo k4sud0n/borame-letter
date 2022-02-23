@@ -14,6 +14,9 @@ const Endpoints = {
   NOTICE_LIST: endpoint`/notice`,
   NOTICE: (id: string) => endpoint`/notice/${id}`,
   LETTER: endpoint`user`,
+  REVIEW_LIST: endpoint`/review`,
+  REVIEW: (id: string) => endpoint`/review/${id}`,
+  MAIN: endpoint`/`,
 };
 
 export default Endpoints;
