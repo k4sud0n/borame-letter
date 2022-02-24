@@ -1,7 +1,6 @@
 import Spinner from '@/components/common/Spinner';
 import Star from '@/components/review/Star';
 import Endpoints from '@/constants/endpoints';
-import NoticePost from '@/types/NoticePost';
 import Review from '@/types/Review';
 import React from 'react';
 import { CSSTransition } from 'react-transition-group';
@@ -37,7 +36,7 @@ const ReviewPostPage = ({ id }: ReviewPostPageProps): JSX.Element => {
               {data?.writer}
             </div>
           </div>
-          <div className={'w-full grow bg-white p-6 text-md md:px-72'}>
+          <div className={'w-full grow bg-white p-6 text-md md:px-72 whitespace-pre'}>
             {data?.content}
           </div>
         </div>

@@ -1,7 +1,8 @@
 import React, { Suspense } from 'react';
 
 import { Route, Switch, useLocation } from 'wouter';
-import { CSSTransition, SwitchTransition, Transition, TransitionGroup } from 'react-transition-group';
+import { CSSTransition, SwitchTransition } from 'react-transition-group';
+import { SWRConfig } from 'swr';
 
 import MainPage from './pages/MainPage';
 import ErrorPage from './pages/ErrorPage';
@@ -13,9 +14,8 @@ import RecruitPage from './pages/RecruitPage';
 import RecruitDetailPage from './pages/RecruitDetailPage';
 import NoticePostPage from './pages/NoticePostPage';
 import Spinner from './components/common/Spinner';
-import useSWR, { SWRConfig } from 'swr';
 import ReviewPostPage from './pages/ReviewPostPage';
-import Endpoints from './constants/endpoints';
+import ReviewUploadPage from './pages/ReviewUploadPage';
 
 const fetcher = (url: string) => fetch(url).then((response) => response.json());
 
@@ -41,6 +41,7 @@ function App() {
                 </Route>
                 <Route path={'/recruit'} component={RecruitPage} />
                 <Route path={'/recruit/details:rest*'} component={RecruitDetailPage} />
+                <Route path={'/upload/review'} component={ReviewUploadPage} />
                 <Route component={ErrorPage} />
               </Switch>
             </CSSTransition>

@@ -4,18 +4,18 @@ import React from 'react';
 import { CSSTransition } from 'react-transition-group';
 import useSWR from 'swr';
 import Endpoints from '@/constants/endpoints';
-import NoticePost from '@/types/NoticePost';
 import ErrorViewer from '@/components/ErrorViewer';
+import NoticeResponse from '@/types/NoticeResponse';
 
 const NoticePage = (): JSX.Element => {
-  const { data, error } = useSWR<NoticePost[]>(Endpoints.NOTICE_LIST);
+  const { data, error } = useSWR<NoticeResponse>(Endpoints.NOTICE_LIST);
 
   return (
     <div className={'grow relative'}>
       <CSSTransition in={!!data} timeout={250} classNames={'fade-scale'} mountOnEnter unmountOnExit>
         <div className={'absolute inset-0 grow md:container md:mx-auto p-3 flex flex-col gap-3'}>
           {
-              data?.map((post) => (
+              data?.items?.map((post) => (
                 <NoticeCard
                   key={post.id}
                   id={post.id}
