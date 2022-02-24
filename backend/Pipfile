@@ -12,8 +12,10 @@ python-dotenv = "*"
 webdriver-manager = "*"
 sqlalchemy = "*"
 pymysql = "*"
-numba = "*"
 bcrypt = "*"
+fastapi-pagination = "*"
+fastapi-cache2 = "*"
+redis = "*"
 
 [dev-packages]
 

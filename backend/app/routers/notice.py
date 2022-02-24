@@ -1,8 +1,10 @@
 import os
 import sys
+import datetime
 
-from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
+from fastapi import APIRouter, HTTPException
+from fastapi_pagination import Page, add_pagination, paginate
 
 from sqlalchemy import desc
 
@@ -13,15 +15,22 @@ router = APIRouter(
     prefix='/notice'
 )
 
+class GetNotice(BaseModel):
+    id: int
+    title: str
+    content: str
+    writer: str
+    created_at: datetime.datetime
+
 # class PostNotice(BaseModel):
 #     title: str
 #     content: str
 #     writer: str
 
-@router.get('/', status_code=200)
+@router.get('/', status_code=200, response_model=Page[GetNotice])
 async def get_notice():
-    notices = session.query(Notice).order_by(desc(Notice.id)).all()
-    return notices
+    notices = session.query(Notice.id, Notice.title, Notice.content, Notice.writer, Notice.created_at).order_by(desc(Notice.id)).all()
+    return paginate(notices)
 
 @router.get('/{notice_id}', status_code=200)
 async def read_notice(notice_id):
@@ -37,3 +46,5 @@ async def read_notice(notice_id):
 #     session.add(Notice(notice.title, notice.content, notice.writer))
 #     session.commit()
 #     return notice
+
+add_pagination(router)

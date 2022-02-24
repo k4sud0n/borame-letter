@@ -1,8 +1,8 @@
 import os
 import sys
 
-from fastapi import APIRouter
 from pydantic import BaseModel
+from fastapi import APIRouter
 
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 from database import User, session
@@ -57,7 +57,8 @@ async def patch_user(user: PatchUser):
         exist_user.stock = user.category['stock']
         exist_user.cryptocurrency = user.category['cryptocurrency']
         session.commit()
-        return user
+        session.refresh(exist_user)
+        return exist_user
     else:
         raise HTTPException(status_code=404, detail="User doesn't exists")
 
