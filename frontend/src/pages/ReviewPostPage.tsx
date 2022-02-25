@@ -18,25 +18,26 @@ const ReviewPostPage = ({ id }: ReviewPostPageProps): JSX.Element => {
   return (
     <div className={'grow relative'}>
       <CSSTransition in={!!data} timeout={250} classNames={'fade-scale'} mountOnEnter unmountOnExit>
-        <div className={'absolute inset-0'}>
+        <div className={''}>
           <div
             className={`
-              w-full h-72 bg-slate-500 bg-opacity-30 p-6 flex flex-col gap-3 justify-end md:justify-center items-start md:items-center
+              w-full h-72 bg-slate-500 bg-opacity-50 p-6 flex flex-col gap-3 justify-end md:justify-center items-start md:items-center
               text-4xl font-bold whitespace-pre md:whitespace-normal relative overflow-hidden
             `}
           >
+            <img className={'absolute w-full h-full inset-0 -z-10 object-cover blur-sm'} src={'../../../assets/image/background3.jpg'} />
             <div className={'absolute right-3 top-3 text-slate-500 text-xs text-right'}>
               {`업로드 일자: ${data?.created_at ? new Date(data.created_at).toLocaleString(undefined, localeOptions) : '알 수 없음'}`}
             </div>
-            {data?.title}
-            <div className={'text-xl'}>
-              <Star rating={data?.rating ?? 5} />
+            <div className={'w-full md:w-fit whitespace-pre-wrap'}>
+              {data?.title}
             </div>
+            <Star size={36} rating={data?.rating ?? 5} />
             <div className={'text-xl'}>
               {data?.writer}
             </div>
           </div>
-          <div className={'w-full grow bg-white p-6 text-md md:px-72 whitespace-pre'}>
+          <div className={'w-full grow bg-white p-6 text-md md:px-72 whitespace-pre-wrap'}>
             {data?.content}
           </div>
         </div>
@@ -49,7 +50,7 @@ const ReviewPostPage = ({ id }: ReviewPostPageProps): JSX.Element => {
       <CSSTransition in={!!error} timeout={250} classNames={'fade-scale'} mountOnEnter unmountOnExit>
         <div className={'border-sky-500 absolute inset-0 flex flex-col justify-center items-center'}>
           오류가 발생했습니다
-          <br/>
+          <br />
           {error}
         </div>
       </CSSTransition>

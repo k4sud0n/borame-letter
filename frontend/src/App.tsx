@@ -13,7 +13,6 @@ import ReviewPage from './pages/ReviewPage';
 import RecruitPage from './pages/RecruitPage';
 import RecruitDetailPage from './pages/RecruitDetailPage';
 import NoticePostPage from './pages/NoticePostPage';
-import Spinner from './components/common/Spinner';
 import ReviewPostPage from './pages/ReviewPostPage';
 import ReviewUploadPage from './pages/ReviewUploadPage';
 
@@ -26,27 +25,25 @@ function App() {
     <SWRConfig value={{ fetcher }}>
       <div className={'flex flex-col w-full h-full'}>
         <Header />
-        <Suspense fallback={<Spinner />}>
-          <SwitchTransition>
-            <CSSTransition in key={location} classNames={'slide'} timeout={250}>
-              <Switch location={location}>
-                <Route path={'/'} component={MainPage} />
-                <Route path={'/notice'} component={AboutPage} />
-                <Route path={'/notice/:id'}>
-                  {({ id }) => (<NoticePostPage id={id} />)}
-                </Route>
-                <Route path={'/review'} component={ReviewPage} />
-                <Route path={'/review/:id'}>
-                  {({ id }) => (<ReviewPostPage id={id} />)}
-                </Route>
-                <Route path={'/recruit'} component={RecruitPage} />
-                <Route path={'/recruit/details:rest*'} component={RecruitDetailPage} />
-                <Route path={'/upload/review'} component={ReviewUploadPage} />
-                <Route component={ErrorPage} />
-              </Switch>
-            </CSSTransition>
-          </SwitchTransition>
-        </Suspense>
+        <SwitchTransition>
+          <CSSTransition in key={location} classNames={'slide'} timeout={250}>
+            <Switch location={location}>
+              <Route path={'/'} component={MainPage} />
+              <Route path={'/notice'} component={AboutPage} />
+              <Route path={'/notice/:id'}>
+                {({ id }) => (<NoticePostPage id={id} />)}
+              </Route>
+              <Route path={'/review'} component={ReviewPage} />
+              <Route path={'/review/:id'}>
+                {({ id }) => (<ReviewPostPage id={id} />)}
+              </Route>
+              <Route path={'/recruit'} component={RecruitPage} />
+              <Route path={'/recruit/details:rest*'} component={RecruitDetailPage} />
+              <Route path={'/upload/review'} component={ReviewUploadPage} />
+              <Route component={ErrorPage} />
+            </Switch>
+          </CSSTransition>
+        </SwitchTransition>
         <Footer />
       </div>
     </SWRConfig>

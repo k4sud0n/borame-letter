@@ -3,15 +3,19 @@ import ErrorViewer from '@/components/ErrorViewer';
 import Star from '@/components/review/Star';
 import Endpoints from '@/constants/endpoints';
 import useRequest from '@/hooks/useRequest';
+import Review from '@/types/Review';
 import ReviewRequest from '@/types/ReviewRequest';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
+import { useLocation } from 'wouter';
 
 export interface ReviewUploadPageProps {
 
 }
 
 const ReviewUploadPage = ({ }: ReviewUploadPageProps): JSX.Element => {
+  const [, setLocation] = useLocation();
+
   const ref = useRef<HTMLFormElement>(null);
   const titleRef = useRef<HTMLInputElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
@@ -19,7 +23,7 @@ const ReviewUploadPage = ({ }: ReviewUploadPageProps): JSX.Element => {
   const contentRef = useRef<HTMLTextAreaElement>(null);
 
   const [rating, setRating] = useState(5);
-  const { data, error, isValidating, fetcher } = useRequest<ReviewRequest>(Endpoints.REVIEW_LIST);
+  const { data, error, isValidating, fetcher } = useRequest<ReviewRequest, Review>(Endpoints.REVIEW_LIST);
 
   const onRatingChange = useCallback((rating: number) => {
     setRating(rating);
@@ -48,7 +52,9 @@ const ReviewUploadPage = ({ }: ReviewUploadPageProps): JSX.Element => {
   }, [ref, rating]);
 
   useEffect(() => {
-    if (data) console.log(data);
+    if (data) {
+      setLocation(`/review/${data.id}`, { replace: true });
+    }
   }, [data]);
 
   return (
@@ -114,7 +120,7 @@ const ReviewUploadPage = ({ }: ReviewUploadPageProps): JSX.Element => {
         valid:border-sky-500 focus:valid:border-sky-500
         invalid:border-red-500 focus:invalid:border-red-500 transition-all`}
         />
-        <div className={'flex flex-row justify-between items-center'}>
+        <div className={'flex flex-row justify-between items-center flex-wrap gap-2'}>
           <div className={'text-slate-300 text-sm shrink'}>
             비밀번호는 후기 수정, 삭제시에 사용됩니다. 자신이 사용하는 암호가 아닌, 간단한 숫자, 영어등을 사용해주세요
           </div>
@@ -132,8 +138,8 @@ const ReviewUploadPage = ({ }: ReviewUploadPageProps): JSX.Element => {
         </div>
       </CSSTransition>
       <CSSTransition in={!!error} timeout={250} classNames={'fade-scale'} unmountOnExit mountOnEnter>
-        <div className={'absolute inset-0 flex flex-col justify-center items-center'}>
-          <ErrorViewer error={error} />
+        <div className={'absolute inset-0 flex flex-col justify-center items-center bg-white'}>
+          <ErrorViewer error={Error(JSON.stringify(error))} />
         </div>
       </CSSTransition>
     </div>

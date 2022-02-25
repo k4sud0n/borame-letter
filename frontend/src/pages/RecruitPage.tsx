@@ -1,3 +1,5 @@
+import Modal from '@/components/common/Modal';
+import { PrivatePolicy } from '@/constants/policy';
 import React, { useCallback, useRef, useState } from 'react';
 import { useLocation } from 'wouter';
 
@@ -32,6 +34,8 @@ const RecruitPage = (): JSX.Element => {
   const [gen, setGen] = useState(getGeneration());
   const [date, setDate] = useState(getMinBirthday());
 
+  const [modal, setModal] = useState(false);
+
   const [, navigate] = useLocation();
 
   const onGenChange: React.ChangeEventHandler<HTMLInputElement> = useCallback((event) => {
@@ -46,11 +50,24 @@ const RecruitPage = (): JSX.Element => {
     const isValid = formRef.current?.checkValidity();
 
     if (isValid) {
-      navigate(`/recruit/details?name=${nameRef.current?.value}&gen=${gen}&date=${date}`);
+      setModal(true);
+      //  navigate(`/recruit/details?name=${nameRef.current?.value}&gen=${gen}&date=${date}`);
+    } else {
+      formRef.current?.reportValidity();
     }
 
     event.preventDefault();
   }, [formRef, nameRef, gen, date]);
+
+  const onAgree = useCallback(() => {
+    const isValid = formRef.current?.checkValidity();
+
+    if (isValid) {
+      navigate(`/recruit/details?name=${nameRef.current?.value}&gen=${gen}&date=${date}`);
+    } else {
+      formRef.current?.reportValidity();
+    }
+  }, []);
 
   return (
     <div className={'md:container md:mx-auto grow flex flex-col justify-center items-center gap-4'}>
@@ -106,6 +123,15 @@ const RecruitPage = (): JSX.Element => {
         </div>
         <button className={'rounded-full bg-sky-500 px-4 py-2 text-white font-semibold  hover:bg-sky-400 self-center'} onClick={onNext}>다음</button>
       </form>
+      <Modal
+        title={PrivatePolicy.title}
+        open={modal}
+        positive={'동의'}
+        onButtonClick={onAgree}
+        onClose={() => setModal(false)}
+      >
+        {PrivatePolicy.content}
+      </Modal>
     </div>
   );
 }

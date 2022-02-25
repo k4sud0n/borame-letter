@@ -20,6 +20,7 @@ export interface Topic {
   icon: IconifyIcon | string;
   extra?: string;
   extraPattern?: string;
+  description?: string;
 }
 
 export const newsTopic: Topic[] = [
@@ -80,6 +81,7 @@ export const otherTopic: Topic[] = [
     icon: StockIcon,
     extra: '종목코드 (ex: 005930)',
     extraPattern: '[0-9]{6}',
+    description: '현재는 KOSPI만 지원합니다',
   },
   {
     id: 'cryptocurrency',

@@ -14,9 +14,10 @@ const NoticeCard = React.memo(({ id, title, writer, summary, date, thumbnail }: 
   <Link
     href={`/notice/${id}`}
     className={`
-      flex flex-row justify-start items-start bg-slate-200 rounded-lg cursor-pointer transition-all gap
+      flex flex-row justify-start items-center bg-slate-200 rounded-lg cursor-pointer transition-all gap
       border-4 border-slate-200
       hover:border-slate-300 active:bg-slate-300
+      h-28
     `}
   >
     {thumbnail && (

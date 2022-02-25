@@ -84,6 +84,9 @@ const useDragEvent = <Element extends HTMLElement>(callback: DragCallback, deps:
             setTargetRect(null);
             setStartData(null);
           }
+        } else {
+          setTargetRect(null);
+          setStartData(null);
         }
       };
       document.addEventListener('mouseup', mouseend);

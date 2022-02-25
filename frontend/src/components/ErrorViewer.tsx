@@ -6,7 +6,7 @@ export interface ErrorViewerProps {
 
 const ErrorViewer = ({ error }: ErrorViewerProps): JSX.Element => {
   return (
-    <div className={'flex flex-col justify-center items-center gap-1 w-full p-4'}>
+    <div className={'flex flex-col justify-center items-center gap-1 w-full p-4 bg-white h-full'}>
       <img className={'w-36 h-36 md:w-72 md:h-72'} src={'../../assets/image/fix.png'} />
       <div className={'font-bold md:text-xl'}>
         오류가 발생했어요... 무슨 문제인지 빨리 확인해볼께요

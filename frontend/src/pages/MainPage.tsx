@@ -59,7 +59,7 @@ const MainPage = (): JSX.Element => {
             <div className={'font-bold text-2xl drop-shadow-xl'}>{title}</div>
             <div className={'bg-slate-100 rounded-xl shadow-xl p-3 flex flex-col gap-1 grow'}>
               {content.map((line) => (
-                <div>{line}</div>
+                <div key={line}>{line}</div>
               ))}
             </div>
           </div>

@@ -17,6 +17,7 @@ const Endpoints = {
   REVIEW_LIST: endpoint`/review`,
   REVIEW: (id: string) => endpoint`/review/${id}`,
   MAIN: endpoint`/`,
+  USER_CHECK: endpoint`/user/check`,
 };
 
 export default Endpoints;
