@@ -1,4 +1,5 @@
 import os
+import re
 import sys
 import bcrypt
 import datetime
@@ -7,7 +8,7 @@ from pydantic import BaseModel
 from fastapi import APIRouter, HTTPException
 from fastapi_pagination import Page, add_pagination, paginate
 
-from sqlalchemy import desc
+from sqlalchemy import desc, func
 
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 from database import Review, session
@@ -41,7 +42,7 @@ class PatchReview(BaseModel):
 
 @router.get('/', status_code=200, response_model=Page[GetReview])
 async def get_review():
-    reviews = session.query(Review.id, Review.title, Review.content, Review.writer, Review.rating, Review.created_at).order_by(desc(Review.id)).all()
+    reviews = session.query(Review.id, Review.title, Review.content, func.regexp_replace(Review.writer, '(?<=.{1}).', '*').label('writer'), Review.rating, Review.created_at).order_by(desc(Review.id)).all()
     return paginate(reviews)
 
 @router.post('/', status_code=201)
@@ -62,7 +63,7 @@ async def read_review(review_id):
     review = session.query(Review).filter(Review.id == review_id).first()
     
     if review:
-        review.writer = review.writer.replace(review.writer[len(review.writer) - 1], '*')
+        review.writer = re.sub('(?<=.{1}).', '*', review.writer)
         return review
     else:
         raise HTTPException(status_code=404, detail='Review not found')

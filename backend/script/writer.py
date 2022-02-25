@@ -72,6 +72,19 @@ def writer(user):
         sender(user.name, user.birth_year, user.birth_month, user.birth_date, content[1100:2200])
         sender(user.name, user.birth_year, user.birth_month, user.birth_date, content[2200:3300])
         sender(user.name, user.birth_year, user.birth_month, user.birth_date, content[3300:len(content)])
+    elif 4400 < len(content) < 5500:
+        sender(user.name, user.birth_year, user.birth_month, user.birth_date, content[:1100])
+        sender(user.name, user.birth_year, user.birth_month, user.birth_date, content[1100:2200])
+        sender(user.name, user.birth_year, user.birth_month, user.birth_date, content[2200:3300])
+        sender(user.name, user.birth_year, user.birth_month, user.birth_date, content[3300:4400])
+        sender(user.name, user.birth_year, user.birth_month, user.birth_date, content[4400:len(content)])
+    elif 5500 < len(content) < 6600:
+        sender(user.name, user.birth_year, user.birth_month, user.birth_date, content[:1100])
+        sender(user.name, user.birth_year, user.birth_month, user.birth_date, content[1100:2200])
+        sender(user.name, user.birth_year, user.birth_month, user.birth_date, content[2200:3300])
+        sender(user.name, user.birth_year, user.birth_month, user.birth_date, content[3300:4400])
+        sender(user.name, user.birth_year, user.birth_month, user.birth_date, content[4400:5500])
+        sender(user.name, user.birth_year, user.birth_month, user.birth_date, content[5500:len(content)])
     else:
         sender(user.name, user.birth_year, user.birth_month, user.birth_date, content)
 
