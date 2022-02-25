@@ -1,8 +1,8 @@
 import os
 from datetime import datetime
 
-path_target = '../letters'
-days_elapsed = 7
+path_target = '../log'
+days_elapsed = 6
 
 for f in os.listdir(path_target): # 디렉토리를 조회한다
     f = os.path.join(path_target, f)
