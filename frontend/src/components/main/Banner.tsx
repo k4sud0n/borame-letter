@@ -7,7 +7,6 @@ const TEXTS = [
   '동기,',
 ];
 
-
 const Banner = () => {
     const [index, setIndex] = React.useState(0);
 
