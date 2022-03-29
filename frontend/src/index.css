@@ -55,15 +55,55 @@ body {
     position: absolute;
 }
 
+.pretty {
+    animation: down-in 0.5s cubic-bezier(.2,.7,.5,1);
+    animation-fill-mode: both;
+    animation-delay: calc(0.05s * var(--i));
+}
+
+.pretty.down {
+    display: inline-block;
+}
+
+.show-in {
+    animation: show-in 2s cubic-bezier(.2,.7,.5,1);
+    animation-fill-mode: both;
+}
+
+@keyframes down-in {
+    0% {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0%);
+        opacity: 1;
+    }
+}
+
+@keyframes show-in {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
 .spinner {
-    width: var(--spinner-size);
-    height: var(--spinner-size);
-    
+    width: calc(var(--spinner-size) * 2);
+    height: calc(var(--spinner-size) * 2);
+
     position: relative;
 }
 
 .spinner > div {
-    position:absolute;
+    position: absolute;
+    inset: calc(var(--spinner-size) * 0.5);
 
     width: var(--spinner-size);
     height: var(--spinner-size);

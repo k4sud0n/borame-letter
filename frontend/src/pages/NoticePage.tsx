@@ -6,6 +6,7 @@ import useSWRInfinite, { SWRInfiniteKeyLoader } from 'swr/infinite';
 import Endpoints from '@/constants/endpoints';
 import ErrorViewer from '@/components/ErrorViewer';
 import NoticeResponse from '@/types/NoticeResponse';
+import VisibilitySensor from 'react-visibility-sensor';
 
 const getKey: SWRInfiniteKeyLoader = (index, previousData) => {
   if (previousData && previousData.total < previousData.size * previousData.page) return null;
@@ -16,8 +17,10 @@ const getKey: SWRInfiniteKeyLoader = (index, previousData) => {
 const NoticePage = (): JSX.Element => {
   const { data, error, setSize } = useSWRInfinite<NoticeResponse>(getKey);
 
-  const loadNextPage = useCallback(() => {
-    setSize((it) => it + 1);
+  const loadNextPage = useCallback((isVisible) => {
+    if(isVisible) {
+      setSize((it) => it + 1);
+    }
   }, []);
 
   const items = useMemo(() => data?.map((it) => it.items)?.flat(), [data]);
@@ -47,12 +50,11 @@ const NoticePage = (): JSX.Element => {
             />
           ))}
           {isMore && (
-            <button
-              className={'rounded-full bg-sky-500 px-4 py-2 text-white font-semibold hover:bg-sky-400 self-center'}
-              onClick={loadNextPage}
-            >
-              더 불러오기
-            </button>
+            <VisibilitySensor partialVisibility onChange={loadNextPage}>
+              <div className={'self-center border-sky-500 mt-3'}>
+               <Spinner />
+             </div>
+            </VisibilitySensor>
           )}
         </div>
       </CSSTransition>

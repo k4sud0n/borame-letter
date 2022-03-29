@@ -17,7 +17,7 @@ const NoticePostPage = ({ id }: NoticePostPageProps): JSX.Element => {
   return (
     <div className={'grow relative'}>
       <CSSTransition in={!!data} timeout={250} classNames={'fade-scale'} mountOnEnter unmountOnExit>
-        <div className={'absolute inset-0'}>
+        <div className={''}>
           <div
             className={`
               w-full h-72 bg-slate-500 bg-opacity-50 p-6 flex justify-start md:justify-center items-end md:items-center

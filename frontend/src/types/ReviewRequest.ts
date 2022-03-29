@@ -1,4 +1,5 @@
 interface ReviewRequest {
+  id?: string; // PATCH
   title: string;
   content: string;
   writer: string;

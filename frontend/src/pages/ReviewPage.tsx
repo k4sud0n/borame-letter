@@ -5,10 +5,11 @@ import { CSSTransition } from 'react-transition-group';
 import ErrorViewer from '@/components/ErrorViewer';
 import { Icon } from '@iconify/react';
 import EditIcon from '@iconify/icons-mdi/edit';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { Link } from 'wouter';
 import ReviewResponse from '@/types/ReviewResponse';
 import useSWRInfinite, { SWRInfiniteKeyLoader } from 'swr/infinite';
+import VisibilitySensor from 'react-visibility-sensor';
 
 const getKey: SWRInfiniteKeyLoader = (index, previousData) => {
   if (previousData && previousData.total < previousData.size * previousData.page) return null;
@@ -19,8 +20,10 @@ const getKey: SWRInfiniteKeyLoader = (index, previousData) => {
 const ReviewPage = (): JSX.Element => {
   const { data, error, setSize } = useSWRInfinite<ReviewResponse>(getKey);
 
-  const loadNextPage = useCallback(() => {
-    setSize((it) => it + 1);
+  const loadNextPage = useCallback((isVisible) => {
+    if (isVisible) {
+      setSize((it) => it + 1);
+    }
   }, []);
 
   const items = useMemo(() => data?.map((it) => it.items)?.flat(), [data]);
@@ -38,21 +41,24 @@ const ReviewPage = (): JSX.Element => {
     <>
       <CSSTransition in={!!data} timeout={250} classNames={'fade-scale'} mountOnEnter unmountOnExit>
         <div className={'md:container md:mx-auto p-3 w-full flex flex-col gap-3'}>
-          {!!data && (
-            <Link href={'/upload/review'}>
+          <div className={'w-full flex flex-row justify-between items-center'}>
+            <div className={'text-sm font-semibold text-slate-400'}>
+              총 후기: {data?.[0]?.total ?? 0}개
+            </div>
+            <Link href={'/review/upload'}>
               <div
                 className={`
-                  w-fit h-12 p-2 right-4 bottom-4 rounded
+                  w-fit px-4 py-2 right-4 bottom-4 rounded-full
                   bg-sky-500 shadow-sky-500/50 transition-shadow shadow-md hover:shadow-lg hover:shadow-sky-500/50
-                  flex flex-row justify-center items-center cursor-pointer gap-1 text-white font-semibold self-end
+                  flex flex-row justify-center items-center cursor-pointer gap-1 text-white font-semibold
                 `}
               >
                 <Icon className={'text-lg text-white'} icon={EditIcon} />
                 후기 쓰기
               </div>
             </Link>
-          )}
-          <div className={'grow flex flex-col overflow-y-auto gap-3 '}>
+          </div>
+          <div className={'grow flex flex-col overflow-y-auto gap-3 overflow-visible'}>
             {
               (items?.length ?? 0) > 0
                 ? (
@@ -69,12 +75,11 @@ const ReviewPage = (): JSX.Element => {
                       />
                     ))}
                     {isMore && (
-                      <button
-                        className={'rounded-full bg-sky-500 px-4 py-2 text-white font-semibold hover:bg-sky-400 self-center'}
-                        onClick={loadNextPage}
-                      >
-                        더 불러오기
-                      </button>
+                      <VisibilitySensor partialVisibility onChange={loadNextPage}>
+                        <div className={'self-center border-sky-500 mt-3'}>
+                         <Spinner />
+                      </div>
+                      </VisibilitySensor>
                     )}
                   </>
                 )

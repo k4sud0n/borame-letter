@@ -34,12 +34,17 @@ function App() {
                 {({ id }) => (<NoticePostPage id={id} />)}
               </Route>
               <Route path={'/review'} component={ReviewPage} />
+              <Route path={'/review/upload'}>
+                <ReviewUploadPage />
+              </Route>
+              <Route path={'/review/edit/:id'}>
+                {({ id }) => (<ReviewUploadPage id={id} />)}
+              </Route>
               <Route path={'/review/:id'}>
                 {({ id }) => (<ReviewPostPage id={id} />)}
               </Route>
               <Route path={'/recruit'} component={RecruitPage} />
               <Route path={'/recruit/details:rest*'} component={RecruitDetailPage} />
-              <Route path={'/upload/review'} component={ReviewUploadPage} />
               <Route component={ErrorPage} />
             </Switch>
           </CSSTransition>
