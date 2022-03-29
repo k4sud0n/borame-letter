@@ -57,7 +57,6 @@ async def post_review(review: PostReview):
     session.commit()
 
     session.refresh(review)
-    review.password = "null"
 
     return review
 
