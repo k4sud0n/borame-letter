@@ -151,7 +151,7 @@ const RecruitDetailPage = (): JSX.Element => {
   }, [data]);
 
   return (
-    <div className={'grow'}>
+    <div className={'grow relative'}>
       <CSSTransition in={!checkIsValidating} timeout={250} classNames={'fade-scale'} mountOnEnter unmountOnExit>
         <form
           ref={formRef}

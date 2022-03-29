@@ -18,20 +18,24 @@ const useRequest = <Body extends any, D = any, E = any>(url: string, option: Req
   const [data, setData] = useState<D | null>(null);
   const [isValidating, setIsValidating] = useState(!!option.startWith);
   
-  const fetcher = useCallback(async (body: Body) => {
+  const fetcher = useCallback(async (body?: Body) => {
     setData(null);
     setError(null);
     setIsValidating(true);
 
-    console.log('check', option);
     try {
-      const response = await fetch(url, {
+      const headers = new Headers();
+      const fetchOption: RequestInit = {
         method: option.method ?? 'POST',
-        body: JSON.stringify(body),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+        headers,
+      };
+
+      if (body) {
+        fetchOption.body = JSON.stringify(body);
+        headers.set('Content-Type', 'application/json');
+      }
+
+      const response = await fetch(url, fetchOption);
   
       if (200 <= response.status && response.status < 300) {
         setData(await response.json());
