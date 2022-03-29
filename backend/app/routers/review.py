@@ -50,7 +50,7 @@ async def get_review():
 
 @router.post('/', status_code=201)
 async def post_review(review: PostReview):
-    password = (bcrypt.hashpw(review.password.encode('utf-8'), bcrypt.gensalt())).decode('utf-8')
+    password = bcrypt.hashpw(review.password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
     review = Review(review.title, review.content, review.writer, password, review.rating)
 
     session.add(review)
@@ -74,7 +74,7 @@ async def read_review(review_id):
 @router.patch('/{review_id}', status_code=200)
 async def patch_review(review: PatchReview, review_id):
     exist_review = session.query(Review).filter(Review.id == review_id).first()
-    
+
     if exist_review:
         check_password = bcrypt.checkpw(review.password.encode('utf-8'), exist_review.password.encode('utf-8'))
         
@@ -91,7 +91,7 @@ async def patch_review(review: PatchReview, review_id):
 @router.delete('/{review_id}', status_code=200)
 async def delete_review(review: DeleteReview, review_id):
     exist_review = session.query(Review).filter(Review.id == review_id).first()
-    
+
     if exist_review:
         check_password = bcrypt.checkpw(review.password.encode('utf-8'), exist_review.password.encode('utf-8'))
         
