@@ -40,6 +40,9 @@ class PatchReview(BaseModel):
     password: str
     rating: int
 
+class DeleteReview(BaseModel):
+    password: str
+
 @router.get('/', status_code=200, response_model=Page[GetReview])
 async def get_review():
     reviews = session.query(Review.id, Review.title, Review.content, func.regexp_replace(Review.writer, '(?<=.{1}).', '*').label('writer'), Review.rating, Review.created_at).order_by(desc(Review.id)).all()
@@ -85,5 +88,20 @@ async def patch_review(review: PatchReview, review_id):
     else:
         raise HTTPException(status_code=404, detail='Review not found')
 
+@router.delete('/{review_id}', status_code=200)
+async def delete_review(review: DeleteReview, review_id):
+    exist_review = session.query(Review).filter(Review.id == review_id).first()
+    
+    if exist_review:
+        check_password = bcrypt.checkpw(review.password.encode('utf-8'), exist_review.password.encode('utf-8'))
+        
+        if check_password:
+            session.delete(exist_review)
+            session.commit()
+            raise HTTPException(status_code=200, detail='Delete successfully')
+        else:
+            raise HTTPException(status_code=403, detail='Wrong password')
+    else:
+        raise HTTPException(status_code=404, detail='Review not found')
 
 add_pagination(router)
