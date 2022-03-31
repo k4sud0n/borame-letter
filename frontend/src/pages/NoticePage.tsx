@@ -7,7 +7,7 @@ import Endpoints from '@/constants/endpoints';
 import ErrorViewer from '@/components/ErrorViewer';
 import NoticeResponse from '@/types/NoticeResponse';
 import VisibilitySensor from 'react-visibility-sensor';
-import backgroundImage from '../../../assets/image/background1.png';
+import backgroundImage from '../../assets/image/background1.png';
 
 const getKey: SWRInfiniteKeyLoader = (index, previousData) => {
   if (previousData && previousData.total < previousData.size * previousData.page) return null;
