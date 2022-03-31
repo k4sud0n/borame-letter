@@ -4,6 +4,7 @@ import NoticePost from '@/types/NoticePost';
 import React from 'react';
 import { CSSTransition } from 'react-transition-group';
 import useSWR from 'swr';
+import backgroundImage from '../../../assets/image/background3.jpg';
 
 const localeOptions: Intl.DateTimeFormatOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
@@ -24,7 +25,7 @@ const NoticePostPage = ({ id }: NoticePostPageProps): JSX.Element => {
               text-4xl font-bold whitespace-pre md:whitespace-normal relative overflow-hidden
             `}
           >
-            <img className={'absolute w-full h-full inset-0 -z-10 object-cover blur-sm'} src={data?.thumbnail ?? '../../../assets/image/background3.jpg'} />
+            <img className={'absolute w-full h-full inset-0 -z-10 object-cover blur-sm'} src={data?.thumbnail ?? backgroundImage} />
             <div className={'absolute right-3 top-3 text-slate-500 text-xs text-right'}>
               {`업로드 일자: ${data?.created_at ? new Date(data.created_at).toLocaleString(undefined, localeOptions) : '알 수 없음'}`}
               <br />
