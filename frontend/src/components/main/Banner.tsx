@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import TextTransition, { presets } from 'react-text-transition';
-import backgroundImage '../../../assets/image/background1.png';
+import backgroundImage from '../../../assets/image/background1.png';
 
 const TEXTS = [
   '인편지기,',
