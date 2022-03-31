@@ -7,6 +7,7 @@ import Endpoints from '@/constants/endpoints';
 import ErrorViewer from '@/components/ErrorViewer';
 import NoticeResponse from '@/types/NoticeResponse';
 import VisibilitySensor from 'react-visibility-sensor';
+import backgroundImage from '../../../assets/image/background1.png';
 
 const getKey: SWRInfiniteKeyLoader = (index, previousData) => {
   if (previousData && previousData.total < previousData.size * previousData.page) return null;
@@ -46,7 +47,7 @@ const NoticePage = (): JSX.Element => {
               summary={post.content.slice(0, 50)}
               date={new Date(post.created_at)}
               writer={post.writer}
-              thumbnail={'../../../assets/image/background1.png'}
+              thumbnail={backgroundImage}
             />
           ))}
           {isMore && (
