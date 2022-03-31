@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import TextTransition, { presets } from 'react-text-transition';
+import backgroundImage '../../../assets/image/background1.png';
 
 const TEXTS = [
   '인편지기,',
@@ -31,7 +32,7 @@ const Banner = () => {
                     />
                     <div className="mt-3.5 text-5xl md:text-6xl font-extrabold text-white drop-shadow-md">보라매인편</div>
                 </div>
-                <img className="drop-shadow-md md:w-1/3 md:h-1/3" src="../../../assets/image/background1.png" />
+                <img className="drop-shadow-md md:w-1/3 md:h-1/3" src={backgroundImage} />
             </div>
         </div>
     )
