@@ -17,3 +17,6 @@ WEATHER_KEY=API키
 COVID_KEY=API키
 LETTER_PASSWORD=인편 비밀번호
 ```
+
+## 참고
+- https://facerain.club/fastapi-nginx/
