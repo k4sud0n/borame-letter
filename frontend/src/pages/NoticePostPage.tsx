@@ -4,7 +4,7 @@ import NoticePost from '@/types/NoticePost';
 import React from 'react';
 import { CSSTransition } from 'react-transition-group';
 import useSWR from 'swr';
-import backgroundImage from '../../../assets/image/background3.jpg';
+import backgroundImage from '../../assets/image/background3.jpg';
 
 const localeOptions: Intl.DateTimeFormatOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
