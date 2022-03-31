@@ -8,8 +8,7 @@ from database import User, session
 app = FastAPI()
 
 origins = [
-    'http://localhost:3000',
-    'https://local.suyong.me'
+    'https://borameletter.com'
 ]
 
 app.add_middleware(
