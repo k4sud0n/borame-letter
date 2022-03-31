@@ -11,7 +11,7 @@ import EditIcon from '@iconify/icons-mdi/edit';
 import Modal from '@/components/common/Modal';
 import { useLocation } from 'wouter';
 import useRequest from '@/hooks/useRequest';
-import backgroundImage from '../../../assets/image/background3.jpg';
+import backgroundImage from '../../assets/image/background3.jpg';
 
 const localeOptions: Intl.DateTimeFormatOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
