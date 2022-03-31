@@ -11,6 +11,7 @@ import EditIcon from '@iconify/icons-mdi/edit';
 import Modal from '@/components/common/Modal';
 import { useLocation } from 'wouter';
 import useRequest from '@/hooks/useRequest';
+import backgroundIamge from '../../../assets/image/background3.jpg';
 
 const localeOptions: Intl.DateTimeFormatOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
@@ -65,7 +66,7 @@ const ReviewPostPage = ({ id }: ReviewPostPageProps): JSX.Element => {
               text-4xl font-bold whitespace-pre md:whitespace-normal relative overflow-hidden
             `}
           >
-            <img className={'absolute w-full h-full inset-0 -z-10 object-cover blur-sm'} src={'../../../assets/image/background3.jpg'} />
+            <img className={'absolute w-full h-full inset-0 -z-10 object-cover blur-sm'} src={backgroundImage} />
             <div className={'absolute right-3 top-3 text-slate-500 text-xs text-right'}>
               {`업로드 일자: ${data?.created_at ? new Date(data.created_at).toLocaleString(undefined, localeOptions) : '알 수 없음'}`}
             </div>
