@@ -81,6 +81,7 @@ def sender(name, birth_year, birth_month, birth_date, content):
 
         # 제목 입력
         driver.find_element(By.ID, 'title').send_keys(f'{datetime.now().strftime("%m월 %d일")} 보라매인편')
+        print('title success')
 
         # 내용 입력
         driver.find_element(By.ID, 'contents').send_keys(content)
