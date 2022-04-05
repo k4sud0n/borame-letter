@@ -43,6 +43,8 @@ def sender(name, birth_year, birth_month, birth_date, content):
         wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="btnNext"]')))
         driver.find_element(By.XPATH, '//*[@id="btnNext"]').click()
         print('훈련병 검색 성공')
+        
+        print(driver.page_source)
 
 
         # 창 전환 후 훈련병 선택
