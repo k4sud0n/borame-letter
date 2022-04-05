@@ -104,9 +104,9 @@ def sender(name, birth_year, birth_month, birth_date, content):
         wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="emailPic-container"]/form/div[2]/span[1]/input')))
         driver.find_element(By.XPATH, '//*[@id="emailPic-container"]/form/div[2]/span[1]/input').click()
         print('편지쓰기 클릭 성공')
-        
-        return driver
     except Exception as e: 
         print(e)
     finally:
         driver.quit()
+        
+        return driver
