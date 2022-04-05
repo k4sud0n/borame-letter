@@ -108,5 +108,3 @@ def sender(name, birth_year, birth_month, birth_date, content):
         print(e)
     finally:
         driver.quit()
-        
-        return driver
