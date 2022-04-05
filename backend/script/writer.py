@@ -91,5 +91,5 @@ def writer(user):
     print(f'{user.name} done!')
 
 if __name__ == '__main__':
-    pool = multiprocessing.Pool(processes=4)
+    pool = multiprocessing.Pool(processes=2)
     pool.map(writer, users)
