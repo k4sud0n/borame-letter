@@ -41,25 +41,31 @@ def sender(name, birth_year, birth_month, birth_date, content):
         # 훈련병 검색
         wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="btnNext"]')))
         driver.find_element(By.XPATH, '//*[@id="btnNext"]').click()
+        print('훈련병 검색 성공')
+
 
         # 창 전환 후 훈련병 선택
         driver.switch_to.window(driver.window_handles[1])
         wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="emailPic-container"]/ul/li/input')))
         driver.find_element(By.XPATH, '//*[@id="emailPic-container"]/ul/li/input').click()
+        print('창 전환 후 훈련병 선택 성공')
 
         # 창 전환 후 편지쓰기 클릭
         driver.switch_to.window(driver.window_handles[0])
         wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="btnNext"]')))
         driver.find_element(By.XPATH, '//*[@id="btnNext"]').click()
+        print('창 전환 후 편지쓰기 클릭 성공')
 
         # 인터넷 편지쓰기 버튼 클릭
         wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="emailPic-container"]/div[3]/span/input')))
         driver.find_element(By.XPATH, '//*[@id="emailPic-container"]/div[3]/span/input').click()
+        print('인터넷 편지쓰기 버튼 클릭 성공')
 
         # 우편번호 검색 버튼 클릭 후 창 전환
         wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="emailPic-container"]/form/div[1]/table/tbody/tr[3]/td/div[1]/span/input')))
         driver.find_element(By.XPATH, '//*[@id="emailPic-container"]/form/div[1]/table/tbody/tr[3]/td/div[1]/span/input').click()
         driver.switch_to.window(driver.window_handles[1])
+        print('우편번호 검색 버튼 클릭 후 창 전환 성공')
 
         # 주소 검색
         wait.until(EC.presence_of_element_located((By.ID, "keyword")))
@@ -68,30 +74,36 @@ def sender(name, birth_year, birth_month, birth_date, content):
         driver.find_element(By.XPATH, '//*[@id="searchContentBox"]/div[1]/fieldset/span/input[2]').click()
         wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="roadAddrTd1"]/a')))
         driver.find_element(By.XPATH, '//*[@id="roadAddrTd1"]/a').click()
+        print('주소 검색 성공')
 
         # 상세주소 입력 후 창 전환
         driver.find_element(By.ID, 'rtAddrDetail').send_keys('경남 진주시 금산면 송백로 46')
         wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="resultData"]/div/a')))
         driver.find_element(By.XPATH, '//*[@id="resultData"]/div/a').click()
         driver.switch_to.window(driver.window_handles[0])
+        print('상세주소 입력 후 창 전환 성공')
 
         # 발신자 이름, 관계 입력
         driver.find_element(By.ID, 'senderName').send_keys('보라매인편')
         driver.find_element(By.ID, 'relationship').send_keys('인편지기')
+        print('발신자 이름, 관계 입력 성공')
 
         # 제목 입력
         driver.find_element(By.ID, 'title').send_keys(f'{datetime.now().strftime("%m월 %d일")} 보라매인편')
-        print('title success')
+        print('제목 입력 성공')
 
         # 내용 입력
         driver.find_element(By.ID, 'contents').send_keys(content)
+        print('내용 입력 성공')
 
         # 비밀번호 입력
         driver.find_element(By.ID, 'password').send_keys(str(os.environ.get('LETTER_PASSWORD')))
+        print('비밀번호 입력 성공')
 
         # 편지쓰기 클릭
         wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="emailPic-container"]/form/div[2]/span[1]/input')))
         driver.find_element(By.XPATH, '//*[@id="emailPic-container"]/form/div[2]/span[1]/input').click()
+        print('편지쓰기 클릭 성공')
     except:
         logger = logging.getLogger()
         logger.setLevel(logging.INFO)
