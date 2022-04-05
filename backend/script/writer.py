@@ -60,8 +60,6 @@ def writer(user):
 
     content += today_weather + covid_confirm_case + content_end
     
-    print(content)
-
     if 1100 < len(content) < 2200:
         sender(user.name, user.birth_year, user.birth_month, user.birth_date, content[:1100])
         sender(user.name, user.birth_year, user.birth_month, user.birth_date, content[1100:len(content)])
