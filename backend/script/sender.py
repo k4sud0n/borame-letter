@@ -32,7 +32,8 @@ load_dotenv()
 def sender(name, birth_year, birth_month, birth_date, content):
     try:
         driver.get('https://www.airforce.mil.kr/user/indexSub.action?codyMenuSeq=156893223&siteId=last2&menuUIType=top')
-
+        driver.implicitly_wait(3)
+        
         name = driver.find_element(By.ID, 'searchName').send_keys(name)
         birth_year = driver.find_element(By.ID, 'birthYear').send_keys(birth_year)
         birth_month = driver.find_element(By.ID, 'birthMonth').send_keys(birth_month)
